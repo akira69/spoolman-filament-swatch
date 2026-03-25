@@ -56,6 +56,18 @@ watch(spoolmanUrl, (value) => {
     persist(value);
 });
 
+// Call this once the async hosted config has been fetched and written to
+// window.__SPOOLMAN_HOSTED__.  readStored() runs at module-eval time, before
+// bootstrap() resolves, so spoolmanUrl may have been seeded with a stale
+// standalone URL from localStorage.  This corrects it without persisting the
+// hosted URL back into localStorage.
+export const rehydrateFromHostedConfig = () => {
+    const hostedConfig = getHostedConfig();
+    if (hostedConfig) {
+        spoolmanUrl.value = hostedConfig.spoolman_base_url;
+    }
+};
+
 const persist = (value: string) => {
     if (!hasWindow) return;
     // The embedded app should not overwrite local standalone preferences while it is

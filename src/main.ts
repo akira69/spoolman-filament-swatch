@@ -6,19 +6,8 @@ import "./styles.css";
 import de from "./locales/de.json";
 import en from "./locales/en.json";
 import { setupTheme } from "./composables/useTheme";
-
-type HostedConfig = {
-  contract_version: number;
-  mode: "hosted";
-  app_key: string;
-  spoolman_base_url: string;
-  app_base_path: string;
-};
-
-type HostedWindow = Window & {
-  __SPOOLMAN_HOSTED__?: HostedConfig;
-  __SPOOLMAN_HOSTED_THEME__?: "light" | "dark";
-};
+import { rehydrateFromHostedConfig } from "./composables/useSpoolmanUrl";
+import type { HostedConfig, HostedWindow } from "./composables/useHostedMode";
 
 const getQueryParam = (name: string) => new URLSearchParams(window.location.search).get(name);
 
@@ -47,6 +36,12 @@ const bootstrap = async () => {
     console.warn("Could not load Spoolman hosted config", error);
     return null;
   });
+
+  // Rehydrate spoolmanUrl now that window.__SPOOLMAN_HOSTED__ is set.
+  // useSpoolmanUrl is evaluated at module-load time (before this async
+  // bootstrap runs), so its initial value may be a stale standalone URL
+  // from localStorage.  Correct it here before any connection checks fire.
+  rehydrateFromHostedConfig();
 
   const hostedTheme = getQueryParam("spoolman_theme");
   if (hostedTheme === "light" || hostedTheme === "dark") {
