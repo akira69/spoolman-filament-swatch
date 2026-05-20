@@ -9,5 +9,5 @@
   "license": "MIT",
   "mount_prefix": "/plugins/filament-swatch",
   "show_in_nav": true,
-  "page_url": "/plugins/filament-swatch/?filaman_hosted=1&filaman_hosted_config=/plugins/filament-swatch/hosted-config"
+  "page_url": "/plugin-view/filament-swatch"
 }
