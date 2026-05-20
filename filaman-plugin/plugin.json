@@ -1,0 +1,13 @@
+{
+  "plugin_key": "filament_swatch",
+  "plugin_type": "integration",
+  "name": "Filament Swatch",
+  "version": "1.0.0",
+  "description": "Browse and visualise your filament collection with colour swatches.",
+  "author": "akira69",
+  "homepage": "https://github.com/akira69/spoolman-filament-swatch",
+  "license": "MIT",
+  "mount_prefix": "/plugins/filament-swatch",
+  "show_in_nav": true,
+  "page_url": "/plugins/filament-swatch/"
+}
