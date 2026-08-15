@@ -11,6 +11,45 @@ import { setupTheme } from "./composables/useTheme";
 
 const getQueryParam = (name: string) => new URLSearchParams(window.location.search).get(name);
 
+const parseHostedConfig = (value: unknown): HostedConfig => {
+  if (typeof value !== "object" || value === null) {
+    throw new Error("Hosted config must be an object");
+  }
+
+  const config = value as Record<string, unknown>;
+  if (
+    typeof config.contract_version !== "number" ||
+    config.mode !== "hosted" ||
+    typeof config.app_key !== "string" ||
+    typeof config.spoolman_base_url !== "string" ||
+    typeof config.app_base_path !== "string"
+  ) {
+    throw new Error("Hosted config has an invalid shape");
+  }
+
+  return config as HostedConfig;
+};
+
+const loadFilamanConfig = async () => {
+  const configUrl = getQueryParam("filaman_hosted_config");
+  const hosted = getQueryParam("filaman_hosted");
+
+  if (!hosted || !configUrl) {
+    return null;
+  }
+
+  // The Filaman host serves this JSON from the same origin so the standalone app
+  // can switch into embedded mode without baking any Filaman instance details.
+  const response = await fetch(configUrl);
+  if (!response.ok) {
+    throw new Error(`Could not load Filaman hosted config: ${response.status}`);
+  }
+
+  const config = parseHostedConfig(await response.json());
+  (window as HostedWindow).__FILAMAN_HOSTED__ = config;
+  return config;
+};
+
 const loadHostedConfig = async () => {
   const configUrl = getQueryParam("spoolman_hosted_config");
   const hosted = getQueryParam("spoolman_hosted");
@@ -26,21 +65,33 @@ const loadHostedConfig = async () => {
     throw new Error(`Could not load hosted config: ${response.status}`);
   }
 
-  const config = (await response.json()) as HostedConfig;
+  const config = parseHostedConfig(await response.json());
   (window as HostedWindow).__SPOOLMAN_HOSTED__ = config;
   return config;
 };
 
 const bootstrap = async () => {
-  const hostedConfig = await loadHostedConfig().catch((error) => {
-    console.warn("Could not load Spoolman hosted config", error);
-    return null;
-  });
+  // Try Filaman hosted config first, then fall back to Spoolman hosted config.
+  const hostedConfig =
+    (await loadFilamanConfig().catch((error) => {
+      console.warn("Could not load Filaman hosted config", error);
+      return null;
+    })) ??
+    (await loadHostedConfig().catch((error) => {
+      console.warn("Could not load Spoolman hosted config", error);
+      return null;
+    }));
   rehydrateFromHostedConfig(hostedConfig);
 
-  const hostedTheme = getQueryParam("spoolman_theme");
+  const hostedTheme =
+    getQueryParam("filaman_theme") ?? getQueryParam("spoolman_theme");
   if (hostedTheme === "light" || hostedTheme === "dark") {
-    (window as HostedWindow).__SPOOLMAN_HOSTED_THEME__ = hostedTheme;
+    const win = window as HostedWindow;
+    if (win.__FILAMAN_HOSTED__) {
+      win.__FILAMAN_HOSTED_THEME__ = hostedTheme;
+    } else {
+      win.__SPOOLMAN_HOSTED_THEME__ = hostedTheme;
+    }
   }
 
   const localeFromHost = getQueryParam("spoolman_locale");
