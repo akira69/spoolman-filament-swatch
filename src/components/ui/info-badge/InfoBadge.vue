@@ -24,7 +24,7 @@ withDefaults(defineProps<{
   gap: 6px;
   padding: 6px 12px;
   background: rgba(var(--surface-alt), 0.4);
-  border: 1px solid rgba(var(--border), 0.3);
+  border: 1px solid var(--border);
   border-radius: 20px;
   font-size: 13px;
   font-weight: 600;

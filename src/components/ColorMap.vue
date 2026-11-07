@@ -36,7 +36,7 @@ defineEmits<{ (e: "select", value: string): void }>();
   gap: 8px;
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(var(--border), 0.7);
+  border: 1px solid var(--border);
   background: rgba(var(--surface), 0.85);
   max-height: 120px;
   overflow-y: auto;
@@ -55,7 +55,7 @@ defineEmits<{ (e: "select", value: string): void }>();
   width: 28px;
   height: 28px;
   border-radius: 999px;
-  border: 1px solid rgba(var(--border), 0.6);
+  border: 1px solid var(--border);
   box-shadow: 0 4px 10px -6px rgba(var(--shadow), 0.7);
   cursor: pointer;
   transition: transform 100ms ease, box-shadow 100ms ease, border-color 100ms ease;
@@ -96,7 +96,7 @@ defineEmits<{ (e: "select", value: string): void }>();
   transform: scale(1.05);
 }
 .color-dot--all.active {
-  outline: 2px solid rgb(var(--accent));
+  outline: 2px solid rgb(var(--accent-rgb));
   outline-offset: 2px;
 }
 </style>

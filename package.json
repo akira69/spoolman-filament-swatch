@@ -1,16 +1,16 @@
 {
-  "name": "spoolman-filament-swatch",
-  "version": "1.14.1",
-  "description": "Beautiful, interactive filament color browser for Spoolman - your personal 3D printing filament showroom",
+  "name": "filaman-filament-swatch",
+  "version": "1.1.0",
+  "description": "Native FilaMan inventory and color catalog discovery plugin",
   "author": "Disane87",
   "license": "MIT",
-  "homepage": "https://spoolswatch.disane.dev",
+  "homepage": "https://github.com/akira69/filaman-filament-swatch",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Disane87/spoolman-filament-swatch.git"
+    "url": "https://github.com/akira69/filaman-filament-swatch.git"
   },
   "bugs": {
-    "url": "https://github.com/Disane87/spoolman-filament-swatch/issues"
+    "url": "https://github.com/akira69/filaman-filament-swatch/issues"
   },
   "keywords": [
     "spoolman",
@@ -38,27 +38,26 @@
     "semantic-release": "semantic-release",
     "release:dry": "semantic-release --dry-run --no-ci",
     "release:local": "semantic-release --dry-run --no-ci --branches $(git rev-parse --abbrev-ref HEAD)",
-    "release:test": "node scripts/test-release.mjs"
+    "release:test": "node scripts/test-release.mjs",
+    "test": "node --test scripts/*.test.mjs",
+    "check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@iconify/vue": "^4.3.0",
-    "@types/three": "^0.182.0",
+    "@iconify/vue": "^5.0.0",
     "@vueuse/core": "^14.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dompurify": "^3.3.1",
-    "jszip": "^3.10.1",
     "lucide-vue-next": "^0.562.0",
     "radix-vue": "^1.9.17",
     "reka-ui": "^2.7.0",
     "tailwind-merge": "^3.4.0",
-    "three": "^0.182.0",
     "vue": "^3.5.12",
     "vue-i18n": "^9.10.2",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@octokit/rest": "^21.0.2",
+    "@octokit/rest": "^22.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@tailwindcss/vite": "^4.0.1",
@@ -70,10 +69,11 @@
     "execa": "^9.6.1",
     "puppeteer": "^24.35.0",
     "semantic-release": "^24.2.0",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.0",
     "tailwindcss": "^4.0.1",
     "tw-animate-css": "^1.4.0",
     "typescript": "^5.6.3",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "vue-tsc": "^3.3.14"
   }
 }

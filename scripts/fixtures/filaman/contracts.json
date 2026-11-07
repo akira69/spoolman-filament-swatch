@@ -1,0 +1,190 @@
+{
+  "/api/v1/filaments": {
+    "1": {
+      "items": [
+        {
+          "id": 17,
+          "designation": "Red pair",
+          "manufacturer": {
+            "id": 1,
+            "name": "Example",
+            "logo_url": "/api/v1/manufacturers/1/logo"
+          },
+          "material_type": "PLA",
+          "price": 0,
+          "price_currency": "USD",
+          "raw_material_weight_g": 750,
+          "color_mode": "multi",
+          "multi_color_style": "striped",
+          "colors": [
+            {
+              "color_id": 1,
+              "position": 2,
+              "color": {
+                "name": "Half red",
+                "hex_code": "#FF000088"
+              }
+            },
+            {
+              "color_id": 2,
+              "position": 1,
+              "color": {
+                "name": "Clear red",
+                "hex_code": "#FF000000"
+              }
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "designation": "Unknown",
+          "manufacturer": null,
+          "material_type": "PETG",
+          "price": null,
+          "colors": [
+            {
+              "color_id": 9,
+              "position": 1,
+              "color": null
+            }
+          ]
+        }
+      ],
+      "page": 1,
+      "page_size": 2,
+      "total": 3
+    },
+    "2": {
+      "items": [
+        {
+          "id": 19,
+          "designation": "Blue",
+          "manufacturer": null,
+          "material_type": "PLA",
+          "price": 20,
+          "price_currency": "EUR",
+          "colors": [
+            {
+              "color_id": 19,
+              "position": 1,
+              "color": {
+                "id": 19,
+                "name": "Blue",
+                "hex_code": "#0000FF",
+                "usage_count": 1
+              }
+            }
+          ]
+        }
+      ],
+      "page": 2,
+      "page_size": 2,
+      "total": 3
+    }
+  },
+  "/api/v1/colors": {
+    "1": {
+      "items": [
+        {
+          "id": 17,
+          "name": "Transparent",
+          "hex_code": "#FF000000",
+          "usage_count": 0
+        },
+        {
+          "id": 18,
+          "name": "Red translucent",
+          "hex_code": "#F008",
+          "usage_count": 2
+        }
+      ],
+      "page": 1,
+      "page_size": 2,
+      "total": 3
+    },
+    "2": {
+      "items": [
+        {
+          "id": 19,
+          "name": "Blue",
+          "hex_code": "#0000FF",
+          "usage_count": 1
+        }
+      ],
+      "page": 2,
+      "page_size": 2,
+      "total": 3
+    }
+  },
+  "/api/v1/spools": {
+    "1": {
+      "items": [
+        {
+          "id": 17,
+          "filament_id": 17,
+          "status_id": 1,
+          "location_id": 1,
+          "remaining_weight_g": 999,
+          "metrics": {
+            "remaining_percent": 0,
+            "effective_remaining_weight_g": 0
+          }
+        },
+        {
+          "id": 18,
+          "filament_id": 18,
+          "status_id": 1,
+          "location_id": null,
+          "remaining_weight_g": 999,
+          "metrics": {
+            "remaining_percent": null,
+            "effective_remaining_weight_g": null
+          }
+        }
+      ],
+      "page": 1,
+      "page_size": 2,
+      "total": 3
+    },
+    "2": {
+      "items": [
+        {
+          "id": 19,
+          "filament_id": 19,
+          "status_id": 2,
+          "location_id": null,
+          "remaining_weight_g": 250,
+          "metrics": {
+            "remaining_percent": 25
+          }
+        }
+      ],
+      "page": 2,
+      "page_size": 2,
+      "total": 3
+    }
+  },
+  "/api/v1/spools/statuses": [
+    {
+      "id": 1,
+      "key": "new"
+    },
+    {
+      "id": 2,
+      "key": "archived"
+    }
+  ],
+  "/api/v1/locations": {
+    "1": {
+      "items": [
+        {
+          "id": 1,
+          "name": "Shelf"
+        }
+      ],
+      "page": 1,
+      "page_size": 2,
+      "total": 1
+    }
+  }
+}

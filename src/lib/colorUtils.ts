@@ -13,12 +13,26 @@ export interface ColorMetrics {
 /**
  * Converts a hex color to RGB values
  */
+export function normalizeColor(value: unknown): {hex: string; rgbHex: string; alpha: number} | null {
+  if (typeof value !== 'string') return null;
+  let hex = value.trim().replace(/^#/, '');
+  if (!/^(?:[\da-f]{3}|[\da-f]{4}|[\da-f]{6}|[\da-f]{8})$/i.test(hex)) return null;
+  if (hex.length <= 4) hex = [...hex].map(c=>c+c).join('');
+  hex = `#${hex.toUpperCase()}`;
+  return {hex, rgbHex:hex.slice(0,7), alpha:hex.length === 9 ? parseInt(hex.slice(7),16)/255 : 1};
+}
+
 export function hexToRgb(hex: string): RGB {
-  const cleaned = hex.replace(/^#/, '');
-  const r = parseInt(cleaned.slice(0, 2), 16);
-  const g = parseInt(cleaned.slice(2, 4), 16);
-  const b = parseInt(cleaned.slice(4, 6), 16);
-  return { r, g, b };
+  const cleaned = (normalizeColor(hex)?.rgbHex ?? '#888888').slice(1);
+  return {r:parseInt(cleaned.slice(0,2),16),g:parseInt(cleaned.slice(2,4),16),b:parseInt(cleaned.slice(4,6),16)};
+}
+
+/**
+ * Converts a hex color to RGB string (e.g., "255, 128, 64")
+ */
+export function hexToRgbString(hex: string): string {
+  const { r, g, b } = hexToRgb(hex);
+  return `${r}, ${g}, ${b}`;
 }
 
 /**
@@ -26,23 +40,14 @@ export function hexToRgb(hex: string): RGB {
  */
 export function hexToRgba(hex: string, alpha: number): string {
   const { r, g, b } = hexToRgb(hex);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  return `rgba(${r}, ${g}, ${b}, ${alpha * (normalizeColor(hex)?.alpha ?? 1)})`;
 }
 
 /**
  * Ensures a valid hex color format, normalizes short hex codes
  */
 export function ensureHex(value: string | null | undefined): string {
-  if (!value) return '#888888';
-  const trimmed = value.trim().replace(/^#/, '');
-  const short = /^[0-9a-fA-F]{3}$/;
-  const full = /^[0-9a-fA-F]{6}$/;
-  if (full.test(trimmed)) return `#${trimmed.toLowerCase()}`;
-  if (short.test(trimmed)) {
-    const [a, b, c] = trimmed;
-    return `#${a}${a}${b}${b}${c}${c}`.toLowerCase();
-  }
-  return '#888888';
+  return normalizeColor(value)?.hex ?? '#888888';
 }
 
 /**

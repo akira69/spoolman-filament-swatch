@@ -1,0 +1,9 @@
+{
+  "version": "1.1.0",
+  "date": "2026-11-06",
+  "body": {
+    "en": "Native FilaMan inventory and color catalog discovery. Host language, currency and theme; transparency, manufacturer logos and linked spool fill previews. Existing wheel interactions are preserved. Editing stays in FilaMan.",
+    "de": "Native FilaMan-Ansichten für Bestand und Farbkatalog. Sprache, Währung und Design folgen FilaMan. Transparenz, Herstellerlogos und verlinkte Spulenvorschau. Farbrad unverändert; Bearbeitung in FilaMan.",
+    "fr": "Découverte native de l’inventaire et du catalogue de couleurs FilaMan. Langue, devise et thème synchronisés ; transparence, logos et liens vers les bobines. La roue reste inchangée ; les modifications se font dans FilaMan."
+  }
+}

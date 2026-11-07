@@ -3,3 +3,8 @@ dist
 .env
 .env.local
 public/external-filaments/index.json
+filaman-plugin/static/
+filament-swatch-*.zip
+__pycache__/
+
+_upstream-artifacts/

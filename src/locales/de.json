@@ -1,7 +1,10 @@
 {
   "app": {
-    "title": "Spool Swatch",
-    "subtitle": "Lokaler Farbpicker fuer Filamente und Spulen",
+    "hostedConfigError": "Filament Swatch konnte nicht geladen werden. Bitte die Host-Konfiguration prüfen und erneut versuchen.",
+    "retry": "Erneut versuchen",
+    "title": "FilaMan Swatch",
+    "hostedTitle": "FilaMan Swatch",
+    "subtitle": "Filamente und Farbkatalog entdecken",
     "tagline": "Wische durch Farben, finde Materialien und merke dir perfekte Matches.",
     "footer": {
       "tagline": "Visueller Filament-Farbbrowser",
@@ -12,6 +15,7 @@
     }
   },
   "actions": {
+    "close": "Schließen",
     "refresh": "Neu laden",
     "copy": "Hex kopieren",
     "copied": "Kopiert",
@@ -33,12 +37,18 @@
     "placeholder": "Suche nach Name, Hersteller, Material, Farbe..."
   },
   "filters": {
+    "filter": "Filter",
     "vendor": "Hersteller",
     "material": "Material",
     "source": "Quelle",
     "all": "Alle",
     "onlySpoolman": "Nur Spoolman",
     "onlyExternal": "Nur externe DB",
+    "inventoryScope": "Inventarbereich",
+    "everything": "Alles",
+    "filamentsOnly": "Filamente",
+    "allSpoolsOnly": "Nur alle Spulen",
+    "onHandSpoolsOnly": "Nur vorhandene Spulen",
     "color": "Farbe",
     "colorType": "Farbtyp",
     "singleColor": "Einfarbig",
@@ -62,7 +72,7 @@
   },
   "info": {
     "sourcing": "Datenquelle",
-    "spoolman": "Spoolman",
+    "spoolman": "FilaMan",
     "external": "Externe Filamente",
     "count": "{count} Treffer",
     "item": "Farbe",
@@ -94,10 +104,14 @@
     "material": "Material",
     "spool": "Spule",
     "weight": "Restgewicht",
-    "sourceSpoolman": "Spoolman",
+    "sourceSpoolman": "FilaMan",
     "sourceExternal": "Extern"
   },
   "detail": {
+    "multicolorPattern": "Mehrfarbig: {pattern}",
+    "pattern": { "striped": "Gestreift", "gradient": "Verlauf" },
+    "fullSpoolRemaining": "Jeweils {weight} g übrig",
+    "includeTransparency": "Transparenz einbeziehen",
     "color": "Farbe",
     "details": "Details",
     "spoolId": "Spulen-ID",
@@ -123,12 +137,20 @@
     "colorHarmonies": "Farbharmonien",
     "currentColor": "Aktuelle Farbe",
     "complementary": "Komplementär",
-    "similar": "Ähnlich"
+    "similar": "Ähnlich",
+    "analogous": "Analog",
+    "triadic": "Triade",
+    "split": "Split-Komplementär"
   },
   "theme": {
     "light": "Hell",
     "dark": "Dunkel",
-    "system": "System"
+    "system": "System",
+    "theme": "Design"
+  },
+  "settings": {
+    "showRgb": "RGB anzeigen",
+    "hideRgb": "RGB ausblenden"
   },
   "seo": {
     "title": "Spoolman Filament Swatch",
@@ -393,82 +415,25 @@
       "madeWith": "Gemacht mit {heart} von {author} für die 3D-Druck-Community"
     }
   },
-  "projects": {
-    "title": "Projekte",
-    "subtitle": "Verwalte deine 3D-Druck-Projekte und Filament-Verbrauch",
-    "import": "Projekt importieren",
-    "create": "Projekt erstellen",
-    "delete": "Löschen",
-    "edit": "Bearbeiten",
-    "save": "Speichern",
-    "cancel": "Abbrechen",
-    "noProjects": "Keine Projekte gefunden",
-    "noProjectsHint": "Importiere deine erste .3mf oder .gcode Datei, um loszulegen",
-    "noDescription": "Keine Beschreibung",
-    "confirmDelete": "Projekt löschen?",
-    "confirmDeleteMessage": "Möchtest du \"{name}\" wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
-    "stats": {
-      "total": "Gesamt",
-      "active": "Aktiv",
-      "printTime": "Druckzeit",
-      "filament": "Filament",
-      "used": "Verbraucht",
-      "estimated": "Geschätzt",
-      "projects": "Projekte"
-    },
-    "status": {
-      "all": "Alle",
-      "planning": "Planung",
-      "inProgress": "In Arbeit",
-      "completed": "Fertig",
-      "archived": "Archiviert"
-    },
-    "fields": {
-      "name": "Projektname",
-      "description": "Beschreibung",
-      "weight": "Gewicht",
-      "printTime": "Druckzeit",
-      "cost": "Kosten",
-      "costs": "Kosten",
-      "slicer": "Slicer",
-      "material": "Material",
-      "vendor": "Hersteller",
-      "total": "Gesamt",
-      "estimated": "Geschätzt",
-      "actual": "Tatsächlich",
-      "layerHeight": "Schichthöhe",
-      "updated": "Aktualisiert"
-    },
-    "time": {
-      "today": "Heute",
-      "yesterday": "Gestern",
-      "daysAgo": "vor {count} Tagen",
-      "weeksAgo": "vor {count} Wochen"
-    },
-    "importDialog": {
-      "title": "Projekt aus Slicer-Datei erstellen",
-      "description": "Lade eine .3mf oder .gcode Datei hoch, um automatisch Filament-Informationen zu extrahieren",
-      "dropzone": "Datei hier ablegen oder klicken zum Auswählen",
-      "supportedFormats": "Unterstützt: .3mf, .gcode",
-      "processing": "Datei wird verarbeitet...",
-      "errorParsing": "Fehler beim Parsen der Datei: {error}",
-      "errorCreating": "Fehler beim Erstellen des Projekts: {error}",
-      "errorUnsupported": "Nur .3mf und .gcode Dateien werden unterstützt",
-      "filaments": "Erkannte Filamente ({count})",
-      "unknownMaterial": "Unbekanntes Material",
-      "namePlaceholder": "z.B. Benchy, Vase, Gehäuse...",
-      "descriptionPlaceholder": "Zusätzliche Notizen zum Projekt...",
-      "nameRequired": "Projektname *",
-      "descriptionOptional": "Beschreibung (optional)",
-      "preview": "Vorschau"
-    },
-    "detail": {
-      "backToProjects": "Zurück zu Projekten",
-      "projectInfo": "Projekt-Informationen",
-      "filamentUsage": "Filament-Verbrauch",
-      "removeFilament": "Filament entfernen",
-      "editProject": "Projekt bearbeiten",
-      "deleteProject": "Projekt löschen"
-    }
+  "upload": {
+    "title": "Logo hochladen",
+    "instruction": "Laden Sie ein transparentes PNG- oder SVG-Logo für diesen Hersteller hoch. Die Datei wird über GitHub zum Projekt hinzugefügt.",
+    "dragDrop": "Logo hier ablegen",
+    "formats": "Unterstützt: PNG, SVG (transparenter Hintergrund)",
+    "selectFile": "Datei auswählen",
+    "invalidFormat": "Bitte laden Sie eine PNG- oder SVG-Datei hoch",
+    "prReady": "Bereit beizutragen!",
+    "createPr": "Pull Request auf GitHub erstellen"
+  },
+  "discovery": {
+    "mode": "Entdeckungsmodus",
+    "inventory": "Bestand",
+    "catalog": "Farbkatalog",
+    "unknown": "Restmenge unbekannt",
+    "connected": "Mit FilaMan verbunden",
+    "disconnected": "FilaMan nicht erreichbar",
+    "opacity": "Deckkraft",
+    "edit": "In FilaMan öffnen",
+    "usage": "{count} Farbzuordnungen"
   }
 }

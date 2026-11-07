@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "FilaMan Swatch",
+    "hostedTitle": "FilaMan Swatch",
+    "subtitle": "Explorez vos filaments et votre catalogue de couleurs",
+    "tagline": "Parcourez les couleurs, trouvez les matériaux et conservez vos favoris.",
+    "hostedConfigError": "Impossible de charger FilaMan Swatch. Vérifiez la configuration et réessayez.",
+    "retry": "Réessayer"
+  },
+  "detail": {
+    "multicolorPattern": "Multicolore : {pattern}",
+    "color": "Couleur",
+    "pattern": { "striped": "Rayé", "gradient": "Dégradé" },
+    "fullSpoolRemaining": "{weight} g restants par bobine"
+  },
+  "discovery": {
+    "mode": "Mode de découverte",
+    "inventory": "Inventaire",
+    "catalog": "Catalogue de couleurs",
+    "unknown": "Quantité restante inconnue",
+    "connected": "Connecté à FilaMan",
+    "disconnected": "FilaMan indisponible",
+    "opacity": "Opacité",
+    "edit": "Ouvrir dans FilaMan",
+    "usage": "{count} affectations de couleur"
+  }
+}

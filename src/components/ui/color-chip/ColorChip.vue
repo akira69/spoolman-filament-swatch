@@ -36,7 +36,7 @@ defineEmits<{
   gap: 10px;
   padding: 8px 12px;
   background: rgba(var(--surface-alt), 0.4);
-  border: 1px solid rgba(var(--border), 0.3);
+  border: 1px solid var(--border);
   border-radius: 12px;
   cursor: pointer;
   transition: all 150ms ease;
@@ -46,7 +46,7 @@ defineEmits<{
 
 .color-chip:hover {
   background: rgba(var(--surface-alt), 0.6);
-  border-color: rgba(var(--accent), 0.5);
+  border-color: rgba(var(--accent-rgb), 0.5);
   transform: translateX(4px);
 }
 

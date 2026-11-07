@@ -1,0 +1,5 @@
+/* FilaMan frontend/src/styles/global.css: host contract fixture. */
+:root {--font-sans:"Space Grotesk","Segoe UI",system-ui,sans-serif;--font-serif:"Fraunces","Georgia",serif;--radius-md:14px;--shadow-sm:0 6px 18px rgba(0,0,0,.08);background:var(--bg);color:var(--text);border-color:var(--border);}
+[data-theme="brand"] {--bg:#0c1612;--bg-elevated:#13261d;--bg-soft:#183225;--text:#e9f3ec;--text-muted:#b5c7bd;--accent:#4ee3a2;--accent-2:#6cc6ff;--border:rgba(255,255,255,.08);--btn-primary-text:#0b120e;}
+[data-theme="light"] {--bg:#f8f6f1;--bg-elevated:#ffffff;--bg-soft:#f1ece3;--text:#1a231e;--text-muted:#53645a;--accent:#1c9b6b;--accent-2:#2b7bc7;--border:rgba(26,35,30,.12);--btn-primary-text:#ffffff;}
+[data-theme="dark"] {--bg:#0b0d12;--bg-elevated:#141825;--bg-soft:#1a2032;--text:#eef1f7;--text-muted:#9aa4b7;--accent:#73d1ff;--accent-2:#8cf3b2;--border:rgba(255,255,255,.08);--btn-primary-text:#0b120e;}

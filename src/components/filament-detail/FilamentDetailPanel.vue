@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import {useI18n} from 'vue-i18n';
+import {formatNumber} from '@/filaman/format';
+import {normalizeColor} from '@/lib/colorUtils';
 import { computed } from 'vue';
 import type { FilamentCard } from '@/composables/useFilaments';
-import { hexToRgba } from '@/lib/colorUtils';
 import { getFlatSwatchStyle } from '@/lib/swatchUtils';
-import { ColorSwatch } from '@/components/ui/color-swatch';
 import FilamentDetailHeader from './FilamentDetailHeader.vue';
 import FilamentDetailInfo from './FilamentDetailInfo.vue';
 import FilamentSpoolsList from './FilamentSpoolsList.vue';
 import FilamentColorWheel from './FilamentColorWheel.vue';
 import FilamentColorHarmonies from './FilamentColorHarmonies.vue';
 
+const {t}=useI18n();
 const props = defineProps<{
   filament: FilamentCard | null;
   allFilaments: FilamentCard[];
@@ -18,9 +20,6 @@ const props = defineProps<{
     details: string;
     spoolId: string;
     remainingWeight: string;
-    multiColorType: string;
-    coaxial: string;
-    longitudinal: string;
     similarColors: string;
     complementaryColors: string;
     spools: string;
@@ -39,26 +38,38 @@ const emit = defineEmits<{
   (e: 'selectFilament', filament: FilamentCard): void;
 }>();
 
-const panelBackgroundStyle = computed(() => {
-  if (!props.filament) return {};
+const opacity = computed(()=>(normalizeColor(props.filament?.colorHex)?.alpha ?? 1)*100);
 
-  const color = props.filament.colorHex;
+const colorStops = computed(() => props.filament?.colors.length
+  ? props.filament.colors.map(color => color.hex)
+  : [props.filament?.colorHex ?? '']);
+const pattern = computed(() => props.filament?.nativeColorStyle === 'striped' ? 'striped' : 'gradient');
+const labelRows = computed(() => Math.ceil(colorStops.value.length / 4));
+const stopLabels = computed(() => colorStops.value.map((hex, index) => {
+  const count = colorStops.value.length;
+  const position = count === 1 ? 0 : pattern.value === 'striped'
+    ? (index + .5) / count
+    : index / (count - 1);
   return {
-    background: `linear-gradient(180deg, ${hexToRgba(color, 0.15)} 0%, ${hexToRgba(color, 0.30)} 100%)`,
+    hex,
+    opacity: (normalizeColor(hex)?.alpha ?? 1) * 100,
+    position,
+    bottom: `${12 + (index % labelRows.value) * 36}px`,
   };
-});
+}));
 
 const swatchStyle = computed(() => {
   if (!props.filament) return {};
   return getFlatSwatchStyle(
     props.filament.colorHex,
     props.filament.multiColorHexes,
-    props.filament.multiColorDirection
+    undefined,
+    pattern.value
   );
 });
 
 const showSpools = computed(() => {
-  return props.filament?.source === 'spoolman' &&
+  return props.filament?.kind === 'inventory' &&
     props.filament?.spools &&
     props.filament.spools.length > 0;
 });
@@ -66,28 +77,53 @@ const showSpools = computed(() => {
 
 <template>
   <Transition name="slide-in">
-    <div v-if="filament" class="detail-panel" :style="panelBackgroundStyle">
+    <div v-if="filament" class="detail-panel">
       <FilamentDetailHeader
         :name="filament.name"
         :vendor="filament.vendor"
         :material="filament.material"
-        :source="filament.source"
+        :logo-url="filament.logoUrl"
+        :filaman-href="filament.kind === 'inventory' ? `/filaments/${filament.nativeId}` : '/filaments/colors'"
         @close="emit('close')"
       />
 
       <div class="detail-body">
         <!-- Color Swatch -->
         <div class="detail-section">
-          <h3 class="section-title">{{ labels.color }}</h3>
-          <div class="color-swatch-large" :style="swatchStyle">
-            <div class="color-info">
-              <span class="color-hex">{{ filament.colorHex.toUpperCase() }}</span>
-            </div>
+          <div class="color-heading">
+            <h3 class="section-title">{{ labels.color }}</h3>
+            <span v-if="colorStops.length > 1" class="color-pattern">
+              {{ t('detail.multicolorPattern', { pattern: t(`detail.pattern.${pattern}`) }) }}
+            </span>
+          </div>
+          <div class="color-swatch-large" :class="{ 'color-swatch-gradient': pattern === 'gradient' }"
+            :style="[swatchStyle, { minHeight: `${labelRows * 36 + 24}px` }]">
+            <template v-if="colorStops.length > 1">
+              <div
+                v-for="(stop, index) in stopLabels"
+                :key="index"
+                class="color-stop"
+                :style="{ '--stop-position': stop.position, bottom: stop.bottom }"
+              >
+                <span class="color-hex">{{ stop.hex }}</span>
+                <span v-if="stop.opacity < 100" class="color-stop-opacity"
+                  :aria-label="`${t('discovery.opacity')}: ${formatNumber(stop.opacity, 1)}%`">
+                  {{ formatNumber(stop.opacity, 1) }}%
+                </span>
+              </div>
+            </template>
+            <template v-else>
+              <div class="color-info">
+                <span class="color-hex">{{ filament.colorHex.toUpperCase() }}</span>
+              </div>
+              <span v-if="opacity < 100" class="opacity-badge" :aria-label="`${t('discovery.opacity')}: ${formatNumber(opacity,1)}%`">{{ formatNumber(opacity,1) }}%</span>
+            </template>
           </div>
         </div>
 
         <!-- Filament Details -->
-        <FilamentDetailInfo
+        <p v-if="filament.kind === 'catalog'">{{ t('discovery.usage', {count:filament.usageCount}) }}</p>
+        <FilamentDetailInfo v-if="filament.kind === 'inventory'"
           :filament="filament"
           :labels="{ details: labels.details }"
         />
@@ -96,6 +132,8 @@ const showSpools = computed(() => {
         <FilamentSpoolsList
           v-if="showSpools"
           :spools="filament.spools!"
+          :colors="filament.colors.map(c => c.hex)"
+          :color-style="filament.nativeColorStyle ?? 'gradient'"
           :labels="{
             spools: labels.spools,
             archived: labels.archived,
@@ -142,8 +180,7 @@ const showSpools = computed(() => {
   max-width: 90vw;
   border-left: 1px solid var(--border);
   box-shadow: -8px 0 32px -8px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(32px) saturate(150%);
-  -webkit-backdrop-filter: blur(32px) saturate(150%);
+  background: var(--card);
   z-index: 1000;
   pointer-events: auto;
   display: flex;
@@ -175,13 +212,50 @@ const showSpools = computed(() => {
   margin: 0;
 }
 
+.color-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.color-pattern {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.color-stop {
+  position: absolute;
+  left: clamp(31px, calc(100% * var(--stop-position)), calc(100% - 31px));
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+  padding: 4px 3px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, .72);
+  color: white;
+  line-height: 1.2;
+}
+
+.color-swatch-gradient .color-stop {
+  left: calc(31px + (100% - 62px) * var(--stop-position));
+}
+
+.color-stop .color-hex, .color-stop-opacity {
+  font-size: 10px;
+}
+
 .color-swatch-large {
+  position:relative;
   height: 180px;
   border-radius: 16px;
   display: flex;
   align-items: flex-end;
   padding: 16px;
-  border: 1px solid rgba(var(--border), 0.5);
+  border: 1px solid var(--border);
   box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.3);
 }
 
@@ -197,8 +271,8 @@ const showSpools = computed(() => {
 
 .color-hex {
   font-family: 'Courier New', monospace;
-  font-size: 16px;
-  font-weight: 700;
+  font-size:12px;
+  font-weight:600;
   color: white;
 }
 
@@ -213,4 +287,8 @@ const showSpools = computed(() => {
   transform: translateX(100%);
   opacity: 0;
 }
+</style>
+
+<style scoped>
+.opacity-badge {position:absolute;right:16px;bottom:16px;padding:4px 7px;border-radius:999px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:600;line-height:1.2;}
 </style>

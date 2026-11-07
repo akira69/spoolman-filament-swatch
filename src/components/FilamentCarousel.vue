@@ -12,8 +12,8 @@
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="name">{{ sortLabels.name }}</SelectItem>
-            <SelectItem value="vendor">{{ sortLabels.vendor }}</SelectItem>
-            <SelectItem value="material">{{ sortLabels.material }}</SelectItem>
+            <SelectItem v-if="items[0]?.kind !== 'catalog'" value="vendor">{{ sortLabels.vendor }}</SelectItem>
+            <SelectItem v-if="items[0]?.kind !== 'catalog'" value="material">{{ sortLabels.material }}</SelectItem>
             <SelectItem value="source">{{ sortLabels.source }}</SelectItem>
             <SelectItem value="hue">{{ sortLabels.hue }}</SelectItem>
             <SelectItem value="luminance">{{ sortLabels.luminance }}</SelectItem>
@@ -63,7 +63,7 @@
       <button
         v-for="(swatch, idx) in swatches"
         :key="swatch.id"
-        class="h-8 w-8 sm:h-9 sm:w-9 rounded-full border border-[rgba(var(--border),0.6)] shadow-sm transition hover:scale-[1.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--accent-2),0.7)]"
+        class="h-8 w-8 sm:h-9 sm:w-9 rounded-full border border-[var(--border)] shadow-sm transition hover:scale-[1.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--accent-2),0.7)]"
         :style="{ background: swatch.hex }"
         :aria-label="swatch.name"
         @click="scrollTo(idx)"
@@ -79,12 +79,12 @@
           v-for="(item, idx) in items"
           :key="item.id"
           class="carousel-card relative min-w-[240px] sm:min-w-[280px] max-w-[280px] sm:max-w-[320px] flex-1 snap-center transition-transform"
-          :class="idx === currentIndex ? 'scale-[1.02]' : 'scale-100 opacity-90'"
+          :class="[idx === currentIndex ? 'scale-[1.02]' : 'scale-100 opacity-90',
+            renderedIndices.has(idx) && 'carousel-card-rendered']"
           :data-index="idx"
-          ref="cardRefs"
         >
           <FilamentCard
-            v-if="visibleIndices.has(idx) || Math.abs(idx - currentIndex) < 5"
+            v-if="renderedIndices.has(idx)"
             :filament="item"
             :labels="labels"
             :pinned="isPinned(item.id)"
@@ -124,8 +124,8 @@ const props = defineProps<{
     weight: string;
     copy: string;
     copied: string;
-    sourceSpoolman: string;
-    sourceExternal: string;
+    pin:string;
+    unpin:string;
   };
   sortLabels: {
     name: string;
@@ -151,11 +151,17 @@ defineEmits<{
 }>();
 
 const track = ref<HTMLDivElement | null>(null);
-const cardRefs = ref<HTMLElement[]>([]);
 const currentIndex = ref(0);
 const rafId = ref<number | null>(null);
 const wheelHandler = ref<((e: WheelEvent) => void) | null>(null);
 const visibleIndices = ref(new Set<number>());
+const renderedIndices = computed(() => {
+  const indices = new Set(visibleIndices.value);
+  for (let index = Math.max(0, currentIndex.value - 4); index < Math.min(props.items.length, currentIndex.value + 5); index++) {
+    indices.add(index);
+  }
+  return indices;
+});
 let observer: IntersectionObserver | null = null;
 
 const swatches = computed(() =>
@@ -165,7 +171,7 @@ const swatches = computed(() =>
 const scrollTo = async (idx: number) => {
   currentIndex.value = Math.min(Math.max(idx, 0), props.items.length - 1);
   await nextTick();
-  const el = cardRefs.value[currentIndex.value];
+  const el = track.value?.children[currentIndex.value];
   if (el) {
     el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }
@@ -182,8 +188,11 @@ const applyTransforms = () => {
   const center = el.scrollLeft + el.clientWidth / 2;
   const maxOffset = el.clientWidth / 2;
 
-  cardRefs.value.forEach((card) => {
-    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+  const positions = [...renderedIndices.value].flatMap(index => {
+    const card = el.children[index] as HTMLElement | undefined;
+    return card ? [{card, center: card.offsetLeft + card.offsetWidth / 2}] : [];
+  });
+  for (const {card, center: cardCenter} of positions) {
     const delta = cardCenter - center;
     const ratio = Math.max(-1, Math.min(1, delta / maxOffset));
     const tilt = -ratio * 18; // tilt cards away from center
@@ -193,7 +202,7 @@ const applyTransforms = () => {
     card.style.setProperty("--tilt", tilt.toFixed(2));
     card.style.setProperty("--lift", lift.toFixed(2));
     card.style.setProperty("--depth", depth.toFixed(2));
-  });
+  }
 };
 
 const queueTransformUpdate = () => {
@@ -204,22 +213,27 @@ const queueTransformUpdate = () => {
   });
 };
 
-// keep track in sync when items change (e.g., filtering)
+const observeCards = () => {
+  observer?.disconnect();
+  for (const card of track.value?.children ?? []) observer?.observe(card);
+};
+
 watch(
   () => props.items,
   () => {
     currentIndex.value = 0;
-    // refresh refs after DOM update
-    nextTick(() => {
-      cardRefs.value = cardRefs.value.filter(Boolean);
-      queueTransformUpdate();
-    });
+    visibleIndices.value.clear();
+    if (track.value) track.value.scrollLeft = 0;
+    observeCards();
+    queueTransformUpdate();
   },
+  {flush: 'post'},
 );
+
+watch(renderedIndices, queueTransformUpdate, {flush: 'post'});
 
 onMounted(() => {
   const el = track.value;
-  cardRefs.value = cardRefs.value.filter(Boolean);
   queueTransformUpdate();
   el?.addEventListener("scroll", queueTransformUpdate, { passive: true });
   window.addEventListener("resize", queueTransformUpdate, { passive: true });
@@ -246,8 +260,7 @@ onMounted(() => {
       }
     );
     
-    // Observe all cards
-    cardRefs.value.forEach((card) => card && observer?.observe(card));
+    observeCards();
   }
 
   wheelHandler.value = (evt: WheelEvent) => {
@@ -296,8 +309,11 @@ onUnmounted(() => {
   transform: translateZ(calc(var(--depth, 0) * 1px)) rotateY(calc(var(--tilt, 0) * 1deg))
     translateY(calc(var(--lift, 0) * -1px));
   transform-style: preserve-3d;
-  will-change: transform;
   transition: transform 220ms ease, opacity 180ms ease;
+}
+
+.carousel-card-rendered {
+  will-change: transform;
 }
 
 .carousel-card::before {

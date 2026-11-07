@@ -1,57 +1,29 @@
 <template>
   <div class="flex flex-1 flex-col gap-3 sm:gap-6 min-h-0">
-    <!-- Header Section -->
-    <header class="hidden md:flex flex-col gap-2 flex-shrink-0 pt-4">
-      <p class="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[rgb(var(--text-muted))]">
-        {{ t("app.subtitle") }}
-      </p>
-      <p class="max-w-2xl text-sm text-[rgb(var(--text-muted))]">
-        {{ t("app.tagline") }}
-      </p>
-    </header>
-
-    <div class="control-grid hidden md:flex">
-      <div class="control-card glass">
-        <FiltersBar
-          :filters="filters"
-          :vendor-options="vendorOptions"
-          :material-options="materialOptions"
-          :color-options="colorOptions"
-          :location-options="locationOptions"
-          :search-placeholder="t('search.placeholder')"
-          :labels="{
-            vendor: t('filters.vendor'),
-            material: t('filters.material'),
-            location: t('filters.location'),
-            all: t('filters.all'),
-            onlySpoolman: t('filters.onlySpoolman'),
-            onlyExternal: t('filters.onlyExternal'),
-            color: t('filters.color'),
-            colorType: t('filters.colorType'),
-            singleColor: t('filters.singleColor'),
-            multiColor: t('filters.multiColor'),
-            source: t('filters.source'),
-            sort: t('filters.sort'),
-            sortAsc: t('filters.sortAsc'),
-            sortDesc: t('filters.sortDesc'),
-            sortNameAsc: t('filters.sortNameAsc'),
-            sortVendorAsc: t('filters.sortVendorAsc'),
-            sortMaterialAsc: t('filters.sortMaterialAsc'),
-            sortSourceAsc: t('filters.sortSourceAsc'),
-            sortHueAsc: t('filters.sortHueAsc'),
-            sortLuminanceAsc: t('filters.sortLuminanceAsc'),
-            sortLightnessAsc: t('filters.sortLightnessAsc')
-          }"
-        />
-      </div>
+    <div class="discovery-modes" role="tablist" :aria-label="t('discovery.mode')">
+      <Button v-for="choice in ['inventory','catalog'] as const" :key="choice" class="mode-button" size="sm" variant="ghost" role="tab" :id="`discovery-tab-${choice}`" aria-controls="discovery-panel" :aria-selected="mode === choice" :tabindex="mode === choice ? 0 : -1" @keydown="onModeKeydown" @click="setDiscoveryMode(choice)">
+        <component :is="choice === 'inventory' ? Boxes : Palette" :size="18" class="size-[18px]" aria-hidden="true" />
+        {{ t(`discovery.${choice}`) }}
+      </Button>
     </div>
+    <!-- Filter Modal (opened via navbar) -->
+    <FilterModal
+      :is-open="filterModalOpen ?? false"
+      :initial-filters="filters"
+      :mode="mode"
+      :vendor-options="vendorOptions"
+      :material-options="materialOptions"
+      :location-options="locationOptions"
+      @close="closeFilterModal"
+      @apply="applyFilters"
+    />
 
-    <section class="flex flex-1 flex-col gap-3 sm:gap-6 min-h-0">
-      <div v-if="loading" class="text-sm text-[rgb(var(--text-muted))]">
+    <section id="discovery-panel" role="tabpanel" :aria-labelledby="`discovery-tab-${mode}`" tabindex="0" class="flex flex-1 flex-col gap-3 sm:gap-6 min-h-0">
+      <div v-if="loading && allFilaments.length === 0" class="text-sm text-[rgb(var(--text-muted))]">
         {{ t("status.loading") }}
       </div>
       <div v-else-if="error" class="text-sm text-red-400">
-        {{ t("status.error") }} ({{ error }})
+        {{ t("status.error") }} ({{ error }}) <button @click="refresh()">{{ t("app.retry") }}</button>
       </div>
       <div v-else-if="filtered.length === 0" class="text-sm text-[rgb(var(--text-muted))]">
         {{ t("status.empty") }}
@@ -68,13 +40,13 @@
           @togglePin="togglePin"
           @selectFilament="selectFilament"
           @changeView="viewMode = $event"
-          :pinned-ids="pinnedIds"
+          :pinned-ids="pinnedIds ?? new Set<string>()"
         />
 
         <FilamentBoard
           v-else
           :filaments="filtered"
-          :pinned-ids="pinnedIds"
+          :pinned-ids="pinnedIds ?? new Set<string>()"
           :labels="boardLabels"
           :filters="filters"
           :sort-labels="sortLabels"
@@ -90,10 +62,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from "vue";
+import { computed, inject, ref, watch } from "vue";
+import { Boxes, Palette } from "lucide-vue-next";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "vue-i18n";
 import { useFilaments } from "../composables/useFilaments";
-import FiltersBar from "../components/FiltersBar.vue";
+import FilterModal from "../components/FilterModal.vue";
 import FilamentCarousel from "../components/FilamentCarousel.vue";
 import FilamentBoard from "../components/FilamentBoard.vue";
 import type { FilamentCard } from "../composables/useFilaments";
@@ -101,6 +75,7 @@ import type { Ref } from "vue";
 
 const { t } = useI18n();
 const {
+  mode, setDiscoveryMode, refresh,
   filtered,
   filters,
   vendorOptions,
@@ -116,19 +91,29 @@ const {
 const viewMode = inject<Ref<"carousel" | "board">>("viewMode");
 const pinnedIds = inject<Ref<Set<string>>>("pinnedIds");
 const selectedFilament = inject<Ref<FilamentCard | null>>("selectedFilament");
+const filterModalOpen = inject<Ref<boolean>>("filterModalOpen");
 
 const togglePin = inject<(filament: { id: string }) => void>("togglePin");
 const selectFilament = inject<(filament: FilamentCard) => void>("selectFilament");
 
-// Debug logging
-console.log('FilamentsView mounted', {
-  viewMode: viewMode?.value,
-  pinnedIds: pinnedIds?.value,
-  selectedFilament: selectedFilament?.value,
-  filtered: filtered.value.length,
-  loading: loading.value,
-  error: error.value
-});
+const onModeKeydown=(event:KeyboardEvent)=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const next=event.key==='Home'?'inventory':event.key==='End'?'catalog':mode.value==='inventory'?'catalog':'inventory';
+  void setDiscoveryMode(next);document.getElementById(`discovery-tab-${next}`)?.focus();
+};
+
+const closeFilterModal = () => { if (filterModalOpen) filterModalOpen.value = false; };
+
+// Handle filter apply
+const applyFilters = (newFilters: Pick<typeof filters,'vendor'|'material'|'location'|'source'|'colorType'|'inventoryScope'>) => {
+  filters.inventoryScope = newFilters.inventoryScope;
+  filters.vendor = newFilters.vendor;
+  filters.material = newFilters.material;
+  filters.location = newFilters.location;
+  filters.source = newFilters.source;
+  filters.colorType = newFilters.colorType;
+};
 
 const countLabel = computed(() =>
   t("info.count", { count: filtered.value.length }),
@@ -141,8 +126,6 @@ const cardLabels = computed(() => ({
   weight: t("card.weight"),
   copy: t("actions.copy"),
   copied: t("actions.copied"),
-  sourceSpoolman: t("card.sourceSpoolman"),
-  sourceExternal: t("card.sourceExternal"),
   pin: t("actions.pin"),
   unpin: t("actions.unpin"),
 }));
@@ -150,8 +133,6 @@ const cardLabels = computed(() => ({
 const boardLabels = computed(() => ({
   pin: t("actions.pin"),
   unpin: t("actions.unpin"),
-  sourceSpoolman: t("card.sourceSpoolman"),
-  sourceExternal: t("card.sourceExternal"),
   legend: t("info.legend"),
 }));
 
@@ -165,3 +146,10 @@ const sortLabels = computed(() => ({
   lightness: t('filters.sortLightnessAsc'),
 }));
 </script>
+
+<style scoped>
+.discovery-modes {display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);}
+.mode-button {min-height:40px;padding:8px 4px;border-radius:0;border-bottom:2px solid transparent;font-family:var(--font-sans);font-size:14px;font-weight:600;gap:8px;color:var(--muted-foreground);}
+.mode-button[aria-selected="true"] {border-bottom-color:var(--primary);color:var(--primary);}
+.mode-button:hover {background:var(--muted);color:var(--foreground);}
+</style>

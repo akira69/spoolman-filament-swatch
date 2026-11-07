@@ -1,438 +1,119 @@
-<div align="center">
+# Contributing to FilaMan Swatch
 
-# 🤝 Contributing to Spoolman Filament Swatch
+This document provides guidance for contributing to the `akira69/filaman-filament-swatch` repository, a native FilaMan integration plugin for filament discovery.
 
-Thanks for your interest in contributing! 🎉
+## Overview
 
-We love your input! We want to make contributing to Spoolman Filament Swatch as easy and transparent as possible.
+FilaMan Swatch is a discovery-only plugin that integrates with FilaMan's native API. It provides visual access to inventory and color catalog data without requiring external services or SpoolmanAPI.
 
-</div>
+## Development Setup
 
----
+Use Node.js24, npm and Git. Python3.12 is needed for wrapper/package tests.
+Use an authenticated, isolated FilaMan instance with the integration shell from [core PR204](https://github.com/Fire-Devils/filaman-system/pull/204); stock released-core compatibility is not yet claimed.
 
-## 🌟 Ways to Contribute
-
-There are many ways you can contribute to this project:
-
-- 🐛 **Report bugs** - Found something not working? Let us know!
-- 💡 **Suggest features** - Have an idea? We'd love to hear it!
-- 🌍 **Add translations** - Help make this app available in more languages
-- 📝 **Improve documentation** - Help others understand the project better
-- 💻 **Submit code** - Fix bugs or implement new features
-- 🎨 **Design improvements** - Make the UI/UX even better
-- 🧪 **Add tests** - Help improve code quality and reliability
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-Before you begin, make sure you have:
-
-- **Node.js** (v18 or higher)
-- **npm** or **pnpm** (we use npm in this project)
-- **Git**
-- A **Spoolman instance** for testing (or use the external database feature)
-
-### Development Setup
-
-1. **Fork the repository**
-
-   Click the "Fork" button at the top right of the repository page.
-
-2. **Clone your fork**
-
+1. Clone your fork of `akira69/filaman-filament-swatch`.
+2. Install dependencies:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/spoolman-filament-swatch.git
-   cd spoolman-filament-swatch
+   npm ci
    ```
 
-3. **Add the upstream remote**
-
+3. Run the development server:
    ```bash
-   git remote add upstream https://github.com/Disane87/spoolman-filament-swatch.git
-   ```
-
-4. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-5. **Start the development server**
-
-   ```bash
+   FILAMAN_DEV_URL=http://127.0.0.1:8087 \
+   VITE_HOSTED_MODE=1 \
+   VITE_BASE_PATH=/plugins/filament-swatch/ \
    npm run dev
    ```
 
-   The app will be available at `http://localhost:5173`
-
-### Project Structure
-
-```
-spoolman-filament-swatch/
-├── src/
-│   ├── components/      # Vue components
-│   │   ├── ui/         # Reusable UI components (Button, Card, Dialog, etc.)
-│   │   └── ...         # Feature components (FilamentBoard, FilamentCard, etc.)
-│   ├── composables/    # Vue composables (useFilaments, useTheme, etc.)
-│   ├── locales/        # Translation files (en.json, de.json)
-│   ├── api/            # API integration (spoolman.ts, external-filaments.ts)
-│   ├── lib/            # Utility functions
-│   └── App.vue         # Main application component
-├── public/             # Static assets
-└── ...
-```
-
-## 📝 Commit Guidelines
-
-We use **[Conventional Commits](https://www.conventionalcommits.org/)** for clear and meaningful commit messages.
-
-### Commit Format
-
-```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-### Types
-
-- **feat**: A new feature (Minor release)
-- **fix**: A bug fix (Patch release)
-- **docs**: Documentation only changes (Patch release)
-- **style**: Changes that don't affect the meaning of the code (Patch release)
-- **refactor**: Code change that neither fixes a bug nor adds a feature (Patch release)
-- **perf**: Performance improvements (Patch release)
-- **test**: Adding or updating tests (Patch release)
-- **build**: Changes to the build system or dependencies (Patch release)
-- **ci**: Changes to CI configuration files (Patch release)
-- **chore**: Other changes that don't modify src or test files (No release)
-
-### Scopes with Emojis
-
-We use scopes to categorize commits. The following scopes automatically get emojis in the changelog:
-
-| Scope | Emoji | Description |
-|-------|-------|-------------|
-| `ui` | 🎨 | UI components (FilamentCard, FilamentBoard, etc.) |
-| `api` | 🔌 | API integration (Spoolman, SpoolmanDB) |
-| `filters` | 🔍 | Filter functionality |
-| `i18n` | 🌐 | Internationalization/Translations |
-| `logo` | 🖼️ | Logo and branding |
-| `theme` | 🎨 | Theme system (Dark/Light Mode) |
-| `seo` | 📈 | SEO optimizations |
-| `pwa` | 📱 | Progressive Web App features |
-| `a11y` | ♿ | Accessibility |
-| `security` | 🔒 | Security |
-| `deps` | 📦 | Dependencies |
-| `config` | ⚙️ | Configuration |
-
-### Examples
-
-```bash
-# Features (with scopes and emojis)
-feat(ui): add color gradient picker
-feat(api): integrate SpoolmanDB external filaments
-feat(i18n): add Spanish translation
-feat(filters): add multi-select for manufacturers
-
-# Bug fixes
-fix(filters): color picker not updating on mobile
-fix(theme): dark mode logo not loading correctly
-fix(ui): FilamentCard hover effect in Safari
-
-# Documentation
-docs: update README with new URL parameters
-
-# Other
-style: improve mobile responsiveness of filament cards
-refactor: extract color conversion logic to utility function
-perf: implement virtual scrolling for large filament lists
-test(ui): add unit tests for FilamentCard component
-chore(deps): update vue to 3.5.13
-```
-
-### Testing Your Commits
-
-Before pushing, you can test what release would be created:
-
-```bash
-# Shows which version would be created + release notes preview
-npm run release:test
-```
-
-This will analyze your commits and show:
-- What version change would occur (major/minor/patch)
-- All commits included in the release
-- A preview of the formatted release notes with emojis
-- **No changes are made to your repository** - it's 100% safe!
-
-### Breaking Changes
-
-If your commit introduces a breaking change, add `!` after the type and include `BREAKING CHANGE:` in the commit body:
-
-```bash
-feat(api)!: redesign filter API
-
-BREAKING CHANGE: Filter component now uses new props structure.
-See migration guide in docs/migration.md
-```
-
-This will trigger a **major version** release (e.g., 1.6.0 → 2.0.0).
-
-## 🌿 Branch Strategy
-
-1. **Create a feature branch**
-
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/bug-description
+4. Sign in to the isolated FilaMan instance first. Open the dev server on the same host name (`127.0.0.1` in this example), so its proxy receives the authenticated cookie:
+   ```
+   http://127.0.0.1:5173/plugins/filament-swatch/app/swatch?filaman_hosted=1&filaman_hosted_config=/plugins/filament-swatch/hosted-config
    ```
 
-2. **Keep your branch up to date**
+## Build and Test
 
-   ```bash
-   git fetch upstream
-   git rebase upstream/main
-   ```
-
-3. **Push to your fork**
-
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-## 🔍 Code Style
-
-We maintain code quality with:
-
-- **ESLint** - JavaScript/TypeScript linting
-- **Prettier** - Code formatting
-- **TypeScript** - Type safety
-
-Before committing, make sure your code passes linting:
-
+Build for production:
 ```bash
-npm run lint
+VITE_HOSTED_MODE=1 VITE_BASE_PATH=/plugins/filament-swatch/ npm run build
 ```
 
-### Style Guidelines
-
-- Use **TypeScript** for type safety
-- Use **Vue 3 Composition API** with `<script setup>`
-- Follow **Vue style guide** best practices
-- Use **Tailwind CSS** utility classes for styling
-- Keep components **small and focused**
-- Write **descriptive variable and function names**
-- Add **JSDoc comments** for complex functions
-
-## 🌍 Adding Translations
-
-We use **Vue I18n** for internationalization. Translation files are in `src/locales/`.
-
-### Adding a New Language
-
-1. Create a new JSON file in `src/locales/` (e.g., `fr.json`)
-2. Copy the structure from `en.json`
-3. Translate all strings
-4. Update the language selector in the app
-
-### Translation File Structure
-
-```json
-{
-  "app": {
-    "title": "Translated Title",
-    "subtitle": "Translated Subtitle"
-  },
-  "actions": {
-    "save": "Save",
-    "cancel": "Cancel"
-  }
-}
-```
-
-### Using Translations in Components
-
-```vue
-<template>
-  <h1>{{ $t('app.title') }}</h1>
-  <button>{{ $t('actions.save') }}</button>
-</template>
-```
-
-## 🧪 Testing
-
-Before submitting a PR, please:
-
-1. **Test your changes manually**
-   - Test with a real Spoolman instance
-   - Test with the external database
-   - Test on different screen sizes
-   - Test in both light and dark mode
-
-2. **Check for console errors**
-   - Open browser DevTools
-   - Look for errors or warnings
-
-3. **Test edge cases**
-   - Empty states
-   - Loading states
-   - Error states
-   - Large datasets
-
-## 📥 Submitting a Pull Request
-
-1. **Make sure your code is ready**
-   - All commits follow conventional commit format
-   - Code is properly formatted and linted
-   - Changes are tested
-
-2. **Push to your fork**
-
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-3. **Create the Pull Request**
-   - Go to the [original repository](https://github.com/Disane87/spoolman-filament-swatch)
-   - Click "New Pull Request"
-   - Select "compare across forks"
-   - Choose your fork and branch
-
-4. **Fill out the PR template**
-   - Provide a clear description of your changes
-   - Reference any related issues
-   - Add screenshots for UI changes
-   - List any breaking changes
-
-5. **Wait for review**
-   - Respond to feedback promptly
-   - Make requested changes
-   - Keep the PR updated
-
-## 🐛 Reporting Bugs
-
-Found a bug? Here's how to report it:
-
-1. **Check if it's already reported**
-   - Search [existing issues](https://github.com/Disane87/spoolman-filament-swatch/issues)
-
-2. **Create a new issue**
-   - Use a clear, descriptive title
-   - Describe the expected behavior
-   - Describe the actual behavior
-   - Provide steps to reproduce
-   - Include screenshots if applicable
-   - Mention your environment (browser, OS, Spoolman version)
-
-### Bug Report Template
-
-```markdown
-**Describe the bug**
-A clear description of what the bug is.
-
-**To Reproduce**
-1. Go to '...'
-2. Click on '...'
-3. Scroll down to '...'
-4. See error
-
-**Expected behavior**
-What you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots.
-
-**Environment:**
- - Browser: [e.g. Chrome 120]
- - OS: [e.g. Windows 11]
- - Spoolman Version: [e.g. 0.18.0]
- - App Version: [e.g. 1.2.0]
-```
-
-## 💡 Feature Requests
-
-Have an idea for a new feature?
-
-1. **Check existing feature requests**
-   - Search [existing issues](https://github.com/Disane87/spoolman-filament-swatch/issues?q=is%3Aissue+label%3Aenhancement)
-
-2. **Open a new issue**
-   - Use the "Feature Request" template
-   - Describe the feature clearly
-   - Explain why it would be useful
-   - Suggest implementation approaches if you have ideas
-
-## 📜 Code of Conduct
-
-### Our Standards
-
-- **Be respectful** and considerate
-- **Be collaborative** and helpful
-- **Be open** to constructive criticism
-- **Focus on what's best** for the community
-- **Show empathy** towards others
-
-### Unacceptable Behavior
-
-- Harassment or discrimination
-- Trolling or insulting comments
-- Public or private harassment
-- Publishing others' private information
-- Other unprofessional conduct
-
-## 🎯 Development Tips
-
-### Useful Commands
-
+Run component type checking and browser/module regressions:
 ```bash
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Run linting
-npm run lint
-
-# Format code
-npm run format
+npm run check
+npm test
 ```
 
-### Debugging
+Python tests require FastAPI and httpx:
+```bash
+python -m pip install fastapi httpx
+python -m unittest discover -s tests
+```
 
-- Use Vue DevTools browser extension
-- Check browser console for errors
-- Use `console.log()` or debugger statements
-- Test with Spoolman API directly using browser DevTools
+## Code Quality
 
-### Working with the Spoolman API
+- `npm run check` invokes `vue-tsc --noEmit`, including Vue component scripts and templates.
+- Follow Conventional Commits: `fix(filters): match stock at the selected location`, for example.
+- Squash fixes into coherent commits.
+- Preserve unrelated work and create backup refs before rewriting history. Rewrite published history only when explicitly authorized and allowed by repository policy, using an exact force-with-lease. Protected branches use normal PR merges.
+- Follow [FilaMan UI standards](https://github.com/Fire-Devils/filaman-system/blob/devel/docs/ui-style-guide.md); retain editing links to native FilaMan pages.
 
-The Spoolman API integration is in `src/api/spoolman.ts`. Key endpoints:
+## Branching Strategy
 
-- `/api/v1/spool` - Get all spools
-- `/api/v1/filament` - Get all filaments
-- `/api/v1/vendor` - Get all vendors
+- Use `feat/`, `fix/`, `docs/`, or `chore/` prefixes.
+- Do not use `codex/` or assistant-branded names.
+- Native PRs target this repository's `main`, not Disane87's repository.
+- Follow-up fixes to open native PR16 target `feat/filaman-discovery`.
 
-## 🙏 Questions?
+## Release Process
 
-Don't hesitate to ask! You can:
+Releases are explicitly created by maintainers using `filaman-vX.Y.Z` tags. Commit types do not publish releases. Package metadata and bundled release notes must match the tag; the packager rejects stale bundles. Update PRs never release automatically. The release process includes:
 
-- 💬 Open a [discussion](https://github.com/Disane87/spoolman-filament-swatch/discussions)
-- 📧 Comment on an existing issue
-- 🐛 Create a new issue with the "question" label
+1. Building with `VITE_HOSTED_MODE=1` and `VITE_BASE_PATH=/plugins/filament-swatch/`.
+2. Running all tests.
+3. Packaging with:
+   ```bash
+   python scripts/package-filaman-plugin.py filaman-v1.1.0
+   ```
+4. Publishing to GitHub releases.
 
-## 🎉 Thank You!
+## Upstream Updates
 
-Every contribution, no matter how small, makes a difference! Thank you for helping make Spoolman Filament Swatch better! 🚀
+- The update workflow proposes Disane87 changes as review PRs. Do not rebase native development directly onto `Disane87/main`.
+- Review update PRs manually; never auto-merge.
+- Conflicts, dependencies and already-adopted changes require manual reconciliation. Record actual adoptions and their pinned source in `docs/upstream-adoptions.json`; advance `upstream-source.json` only after the full delta is reconciled.
+- MIT license and attribution retained.
 
----
+## Testing
 
-Made with ❤️ by the community, for the community
+Test themes (Default/Light/Dark), locales/currency, alpha zero and striped/gradient colors, account switching, permissions, paging/large catalogs, mobile/keyboard/scroll, and ZIP install+upgrade on isolated data copies. Never require production DB writes.
+
+## Repository Details
+
+- **Origin**: `akira69/filaman-filament-swatch`
+- **Contributions Target**: `main` branch
+- **Native PRs**: Target `feat/filaman-discovery` for follow-ups to open PR16
+- **Upstream Changes**: Arrive through reviewed bot update PRs
+
+## PR Checklist
+
+- [ ] Follow conventional commits
+- [ ] Squash fixes into coherent commits
+- [ ] Preserve unrelated work
+- [ ] Do not force-push protected history
+- [ ] `npm run check` passes
+- [ ] Run all tests before submitting
+- [ ] Wrapper/package tests pass when the package or backend wrapper changes
+- [ ] Verify hosted build with correct VITE settings
+- [ ] Relevant theme, locale, account, permission, keyboard and scroll cases are exercised
+- [ ] Screenshots represent the tested UI and data; database files and credentials are excluded
+- [ ] Retain MIT notices, source provenance and contributor credit
+
+## Ownership and scope
+
+Native API integration is in `src/api/filaman.ts`; host presentation and formatting live in `src/filaman`. Keep native adaptations separate from reusable color/search helpers where practical.
+
+Vue I18n dictionaries cover English, German and French. New visible strings need keys in each supported locale. Language, theme and currency follow FilaMan; do not add independent selectors. Supporting another language also requires extending the host mapping and formatting support.
+
+FilaMan manages manufacturer logos. Submit generic upstream fixes in separate PRs with a narrow scope. Keep the native plugin focused on inventory and catalog discovery.
+
+See [compatibility](docs/filaman-compatibility.md), [design](docs/superpowers/specs/2026-11-06-filaman-discovery-plugin-design.md), [verification and limits](docs/implementation-verification.md), and the [upstream adoption ledger](docs/upstream-adoptions.json).

@@ -1,7 +1,10 @@
 {
   "app": {
-    "title": "Spool Swatch",
-    "subtitle": "Local color picker for filaments and spools",
+    "hostedConfigError": "Could not load Filament Swatch. Check the host configuration and retry.",
+    "retry": "Retry",
+    "title": "FilaMan Swatch",
+    "hostedTitle": "FilaMan Swatch",
+    "subtitle": "Explore your filaments and color catalog",
     "tagline": "Swipe through colors, find materials, and remember perfect matches.",
     "footer": {
       "tagline": "Visual filament color browser",
@@ -12,6 +15,7 @@
     }
   },
   "actions": {
+    "close": "Close",
     "refresh": "Refresh",
     "copy": "Copy hex",
     "copied": "Copied",
@@ -33,12 +37,18 @@
     "placeholder": "Search by name, vendor, material, color..."
   },
   "filters": {
+    "filter": "Filters",
     "vendor": "Vendor",
     "material": "Material",
     "source": "Source",
     "all": "All",
     "onlySpoolman": "Spoolman only",
     "onlyExternal": "External DB only",
+    "inventoryScope": "Inventory Scope",
+    "everything": "Everything",
+    "filamentsOnly": "Filaments",
+    "allSpoolsOnly": "All spools only",
+    "onHandSpoolsOnly": "On-hand spools only",
     "color": "Color",
     "colorType": "Color Type",
     "singleColor": "Single Color",
@@ -62,7 +72,7 @@
   },
   "info": {
     "sourcing": "Data source",
-    "spoolman": "Spoolman",
+    "spoolman": "FilaMan",
     "external": "External filaments",
     "count": "{count} results",
     "item": "color",
@@ -94,10 +104,14 @@
     "material": "Material",
     "spool": "Spool",
     "weight": "Remaining weight",
-    "sourceSpoolman": "Spoolman",
+    "sourceSpoolman": "FilaMan",
     "sourceExternal": "External"
   },
   "detail": {
+    "multicolorPattern": "Multicolor: {pattern}",
+    "pattern": { "striped": "Striped", "gradient": "Gradient" },
+    "fullSpoolRemaining": "{weight} g remaining each",
+    "includeTransparency": "Include transparency",
     "color": "Color",
     "details": "Details",
     "spoolId": "Spool ID",
@@ -123,12 +137,20 @@
     "colorHarmonies": "Color Harmonies",
     "currentColor": "Current Color",
     "complementary": "Complementary",
-    "similar": "Similar"
+    "similar": "Similar",
+    "analogous": "Analogous",
+    "triadic": "Triadic",
+    "split": "Split complementary"
   },
   "theme": {
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "theme": "Theme"
+  },
+  "settings": {
+    "showRgb": "Show RGB",
+    "hideRgb": "Hide RGB"
   },
   "seo": {
     "title": "Spoolman Filament Swatch",
@@ -393,86 +415,26 @@
       "madeWith": "Made with {heart} by {author} for the 3D printing community"
     }
   },
-  "projects": {
-    "title": "Projects",
-    "subtitle": "Manage your 3D printing projects and filament usage",
-    "import": "Import Project",
-    "create": "Create Project",
-    "delete": "Delete",
-    "edit": "Edit",
-    "save": "Save",
-    "cancel": "Cancel",
-    "noProjects": "No projects found",
-    "noProjectsHint": "Import your first .3mf or .gcode file to get started",
-    "noDescription": "No description",
-    "confirmDelete": "Delete Project?",
-    "confirmDeleteMessage": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
-    "stats": {
-      "total": "Total",
-      "active": "Active",
-      "printTime": "Print Time",
-      "filament": "Filament",
-      "used": "Used",
-      "estimated": "Estimated",
-      "projects": "Projects"
-    },
-    "status": {
-      "all": "All",
-      "planning": "Planning",
-      "inProgress": "In Progress",
-      "completed": "Completed",
-      "archived": "Archived"
-    },
-    "fields": {
-      "name": "Project Name",
-      "description": "Description",
-      "weight": "Weight",
-      "printTime": "Print Time",
-      "cost": "Cost",
-      "costs": "Costs",
-      "slicer": "Slicer",
-      "material": "Material",
-      "vendor": "Vendor",
-      "total": "Total",
-      "estimated": "Estimated",
-      "actual": "Actual",
-      "layerHeight": "Layer Height",
-      "updated": "Updated"
-    },
-    "time": {
-      "today": "Today",
-      "yesterday": "Yesterday",
-      "daysAgo": "{count} days ago",
-      "weeksAgo": "{count} weeks ago"
-    },
-    "importDialog": {
-      "title": "Create Project from Slicer File",
-      "description": "Upload a .3mf or .gcode file to automatically extract filament information",
-      "dropzone": "Drop file here or click to select",
-      "supportedFormats": "Supported: .3mf, .gcode",
-      "processing": "Processing file...",
-      "errorParsing": "Error parsing file: {error}",
-      "errorCreating": "Error creating project: {error}",
-      "errorUnsupported": "Only .3mf and .gcode files are supported",
-      "filaments": "Detected Filaments ({count})",
-      "unknownMaterial": "Unknown Material",
-      "namePlaceholder": "e.g. Benchy, Vase, Case...",
-      "descriptionPlaceholder": "Additional notes about the project...",
-      "nameRequired": "Project Name *",
-      "descriptionOptional": "Description (optional)",
-      "preview": "Preview"
-    },
-    "detail": {
-      "backToProjects": "Back to Projects",
-      "projectInfo": "Project Information",
-      "filamentUsage": "Filament Usage",
-      "removeFilament": "Remove Filament",
-      "editProject": "Edit Project",
-      "deleteProject": "Delete Project"
-    }
+  "upload": {
+    "title": "Upload Logo",
+    "instruction": "Upload a transparent PNG or SVG logo for this vendor. The file will be added to the project via GitHub.",
+    "dragDrop": "Drag & drop your logo here",
+    "formats": "Supported: PNG, SVG (transparent background)",
+    "selectFile": "Select File",
+    "invalidFormat": "Please upload a PNG or SVG file",
+    "prReady": "Ready to contribute!",
+    "createPr": "Create Pull Request on GitHub"
   },
-  "filamente": "Filamente",
-  "projekte": "Projekte",
-  "import": "Import",
-  "what-s-new": "What\\'s New"
+  "what-s-new": "What's New",
+  "discovery": {
+    "mode": "Discovery mode",
+    "inventory": "Inventory",
+    "catalog": "Color catalog",
+    "unknown": "Unknown remaining amount",
+    "connected": "Connected to FilaMan",
+    "disconnected": "FilaMan unavailable",
+    "opacity": "Opacity",
+    "edit": "Open in FilaMan",
+    "usage": "{count} color assignments"
+  }
 }

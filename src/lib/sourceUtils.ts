@@ -1,4 +1,4 @@
-export type FilamentSource = 'spoolman' | 'external';
+export type FilamentSource = 'spoolman' | 'external' | 'filaman';
 
 export interface SourceConfig {
   icon: string;
@@ -10,6 +10,7 @@ export interface SourceConfig {
  * Configuration for each filament source type
  */
 export const SOURCE_CONFIG: Record<FilamentSource, SourceConfig> = {
+  filaman: {icon:'lucide:database',label:'FilaMan',badgeClass:'badge-filaman'},
   spoolman: {
     icon: 'lucide:server',
     label: 'Spoolman',

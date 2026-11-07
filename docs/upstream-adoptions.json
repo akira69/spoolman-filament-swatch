@@ -1,0 +1,1664 @@
+{
+  "repository": "Disane87/spoolman-filament-swatch",
+  "snapshot_date": "2026-11-06",
+  "snapshot_count": 30,
+  "other_than_pr53": 29,
+  "final_refresh": {
+    "checked_at": "2026-11-06T18:36:39.120Z",
+    "count": 30,
+    "heads": [
+      {
+        "number": 81,
+        "head": "5d7d12efa0fb8e6d680fca6d1d1d63feb8b61b02",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 80,
+        "head": "f2dbf7cace8f4100f3fd2b10395b6abc432590d6",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 78,
+        "head": "d4557d06cb5788bc70f89d876747d40683f10f86",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 77,
+        "head": "38c0bbd18b58266aacdc0679dc27fed03d2d4a13",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 76,
+        "head": "d1ccd6bd4c6262a4c9f86bff880f54145ab7d057",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 75,
+        "head": "72677df9e0d18e37ea412fc0d8aa21976df2a110",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 74,
+        "head": "fcb6815e71e94bb5e06dde761633d5f74c00c453",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 73,
+        "head": "2b228d4458e3c624c49cbf125f58979c56102253",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 71,
+        "head": "54dbeec5cf21df849d6e3a55a532022fa833fc00",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 68,
+        "head": "1f133caa5a7f79c592a82f4da22e2c69a2af69c4",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 66,
+        "head": "32dbee74c914ba71fd00a1503ce331b08d02b689",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 65,
+        "head": "34990594cde68d7e300d3ad62e5922f31802c98b",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 64,
+        "head": "6b93e58e52898f99710a0fd4a55759af42c0a29f",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 63,
+        "head": "4e27bc12dadd4c58d0ca075a9201f3b9a83857fe",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 62,
+        "head": "241ade91d6cf1062a24e7465f5c005737bf54fce",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 61,
+        "head": "5711a9a76883387c1927d2656605d6e03f97363d",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 60,
+        "head": "20e4cf639383b4bf26636b93fdcf96dd14628350",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 59,
+        "head": "b819babc0f8ea670bec791cee655c2fef62ad93d",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 58,
+        "head": "caf0e812a4040985f21e534438978e657df1a290",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 57,
+        "head": "795e69e43f68ca3c9a8448f8222b48cb9c461690",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 56,
+        "head": "37eb6fc52e38dfa1a0c7aaf85440fc6f08a1e80a",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 55,
+        "head": "d64b2e97bfb491136d453ffadd2efae84e799438",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 54,
+        "head": "9c29fc77062a795b2325fcdc7b71e05410759c4f",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 53,
+        "head": "b864db5c03d7d0a7d02476b49467ba1bc47970db",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 52,
+        "head": "9fc143b3fb4ff840bf70d07a8d14362a41ff5ca4",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 51,
+        "head": "7e054abda1f7b04b1d882da0a9186768575aa4e7",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 50,
+        "head": "3f850e597f3eabe7adc833ba4c368bfb426529b1",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 49,
+        "head": "513581bf5364739142e18694d7447c566559f4e2",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 48,
+        "head": "47115bb3e0defcf2e5aa295e4984aa5e1d3972c9",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      },
+      {
+        "number": 47,
+        "head": "b228c41d1c9ea683285010cc2547174807310349",
+        "base": "935d3496df98faaec18e38aa4eba18c43d246c2f"
+      }
+    ]
+  },
+  "comparison_baseline": "647f67be9df767d615b4fe4aad953b911b290ba0",
+  "note": "Read-only triage. Source worktree/ref and GitHub changes are outside this task. Authoritative detailed evidence is upstream-triage-details.json; upstream-triage-evidence.json preserves initial transport failures for two files endpoints, retried successfully in details.",
+  "candidates": [
+    {
+      "number": 81,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/81",
+      "title": "chore(deps): bump @intlify/core-base and vue-i18n",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "5d7d12efa0fb8e6d680fca6d1d1d63feb8b61b02",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/multi-1a4a29912d",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-11-04T05:10:05Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "473b74dab7a3ae5290a368bb5c6b715489922a18",
+          "additions": 42,
+          "deletions": 25,
+          "patch_available": true
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "61403f75dc14ca6dc5b16d3312acad5e24fe3c1f",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/126401387661"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "High: migrate unsupported vue-i18n v9 to v11.4.18, but separate from patch updates. Node >=22 and locale/compiler behavior need verification.",
+      "conflicts_and_dependencies": "Overlaps PR80 and native locale/context work; added devtools-types dependency.",
+      "license_assets": "MIT packages; added package notice review required.",
+      "verification": "Static only; no exploitable translation path independently reproduced.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 80,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/80",
+      "title": "fix(deps): update dependency vue-i18n to v11 [security]",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "f2dbf7cace8f4100f3fd2b10395b6abc432590d6",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/npm-vue-i18n-vulnerability",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-11-04T03:51:40Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "05e46197b934fef9656c34bc664147313466d8d6",
+          "additions": 42,
+          "deletions": 25,
+          "patch_available": true
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "5b883ef9fd42b1529633570a4b52782eed82e251",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/126376215527"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "reject",
+      "benefit_and_relevance": "Duplicates PR81's locked v11.4.18 tree but uses looser ^11.0.0 declaration; prefer PR81 for deliberate migration.",
+      "conflicts_and_dependencies": "Do not import both PR80 and PR81.",
+      "license_assets": "Same MIT family and new devtools-types as PR81.",
+      "verification": "Static diff comparison only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 78,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/78",
+      "title": "chore(deps): bump dompurify from 3.4.13 to 3.4.17",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "d4557d06cb5788bc70f89d876747d40683f10f86",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/dompurify-3.4.17",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-28T02:02:12Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "8c456439c470468998cffd22b05827215c33868d",
+          "additions": 6,
+          "deletions": 6,
+          "patch_available": true
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "f2a306d771501fe3d5c7876dc50114a7288da801",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/122586688658"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "High: DOMPurify 3.4.17 hardening protects the retained release-notes HTML sanitizer; prefer this to PR73 because it also raises the declared minimum.",
+      "conflicts_and_dependencies": "Overlaps PR73; native What's New changes share ChangelogModal, but dependency patch is separate.",
+      "license_assets": "Existing (MPL-2.0 OR Apache-2.0) choice retained; distribute required notices.",
+      "verification": "Actual caller/options inspected; release notes checked. Sanitizer bypass not reproduced; upgraded package not installed/tested.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 77,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/77",
+      "title": "chore(deps): update dependency vite to v7.3.7 [security]",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "38c0bbd18b58266aacdc0679dc27fed03d2d4a13",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/npm-vite-vulnerability",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-27T02:12:29Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "1ba4f61412c4a18bbe2e4efe8e6ccb77470904b8",
+          "additions": 5,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/120578495574"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "reject",
+      "benefit_and_relevance": "Duplicate locked Vite 7.3.7 update; prefer PR76 with declared minimum.",
+      "conflicts_and_dependencies": "Do not apply alongside PR76.",
+      "license_assets": "Existing MIT.",
+      "verification": "Static diff comparison only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 76,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/76",
+      "title": "chore(deps-dev): bump vite from 7.3.6 to 7.3.7",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "d1ccd6bd4c6262a4c9f86bff880f54145ab7d057",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/vite-7.3.7",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-23T18:12:29Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "d011c3b49dbf481d819ef1d68e87ff40908bbb42",
+          "additions": 6,
+          "deletions": 6,
+          "patch_available": true
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "834015d7168a321755b47352dbdd64c0d417db23",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/120578146237"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "High: small Vite 7.3.6 -> 7.3.7 build-tool patch; also declares ^7.3.7.",
+      "conflicts_and_dependencies": "Overlaps PR77; run hosted/native production builds and asset-route tests.",
+      "license_assets": "Existing MIT; baseline Node requirement ^20.19.0 or >=22.12.0.",
+      "verification": "Static diff and primary release inspected; claimed security issue not reproduced.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 75,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/75",
+      "title": "chore(deps): bump source-map-js from 1.2.1 to 1.2.2",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "72677df9e0d18e37ea412fc0d8aa21976df2a110",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/source-map-js-1.2.2",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-18T01:13:40Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "40dbabaec4761c04939ba4fb12cf038db0ba353c",
+          "additions": 5,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/117551709003"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Potential browser CSP compatibility: source-map-js patch avoids unsafe-eval crash according to PR notes; no current failing host reproduced.",
+      "conflicts_and_dependencies": "Shared compiler/source-map transitive dependency; test host CSP and i18n build.",
+      "license_assets": "Existing BSD-3-Clause notice remains.",
+      "verification": "Static only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 74,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/74",
+      "title": "chore(deps-dev): bump handlebars from 4.7.8 to 4.7.10",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "fcb6815e71e94bb5e06dde761633d5f74c00c453",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/handlebars-4.7.10",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-16T06:20:28Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "5b6835ed850b26849d6b895e891ed1a248592459",
+          "additions": 6,
+          "deletions": 6,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/116841925255"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Dev release-template security maintenance for handlebars, separate from runtime plugin changes.",
+      "conflicts_and_dependencies": "Release tooling dependency; test release dry-run and compatibility with chosen semantic-release line.",
+      "license_assets": "Existing MIT.",
+      "verification": "Static only; no untrusted-template exploitation demonstrated.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 73,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/73",
+      "title": "chore(deps): update dependency dompurify to v3.4.17 [security]",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "2b228d4458e3c624c49cbf125f58979c56102253",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/npm-dompurify-vulnerability",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-30T00:53:17Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "dd645155ffac3e3d5ebd09cf7c38c517dde80b01",
+          "additions": 5,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/122586969472"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "reject",
+      "benefit_and_relevance": "Duplicate DOMPurify 3.4.17 patch; prefer PR78's stronger minimum version declaration.",
+      "conflicts_and_dependencies": "Do not apply with PR78.",
+      "license_assets": "Existing (MPL-2.0 OR Apache-2.0).",
+      "verification": "Static diff comparison only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 71,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/71",
+      "title": "chore(deps): bump ip-address from 10.1.0 to 10.7.2",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "54dbeec5cf21df849d6e3a55a532022fa833fc00",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/ip-address-10.7.2",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-09-29T13:44:24Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "a67999ec8df6695ef72409cf8c7a93fc32c08a76",
+          "additions": 5,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/109436214426"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Dev networking/parser maintenance; no native inventory runtime caller found.",
+      "conflicts_and_dependencies": "Puppeteer/proxy tooling transitive dependency; review alongside PR54.",
+      "license_assets": "Existing MIT.",
+      "verification": "Static only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 68,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/68",
+      "title": "fix(i18n): translate hardcoded German text in project import",
+      "author": "IdefixRC",
+      "state": "open",
+      "draft": false,
+      "head_sha": "1f133caa5a7f79c592a82f4da22e2c69a2af69c4",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "fix/import-dialog-i18n",
+      "base_ref": "main",
+      "head_repo": "IdefixRC/spoolman-filament-swatch",
+      "updated_at": "2026-09-26T07:42:33Z",
+      "changed_files": [
+        {
+          "path": "src/components/FilamentCombobox.vue",
+          "status": "modified",
+          "blob_sha": "a0220b71a366a3f5c9b9658b56dc66f25e26e5ee",
+          "additions": 5,
+          "deletions": 2,
+          "patch_available": true
+        },
+        {
+          "path": "src/components/ProjectImportDialog.vue",
+          "status": "modified",
+          "blob_sha": "07b2d909bf3ece6eae09182b48b2aa1926a76acd",
+          "additions": 4,
+          "deletions": 4,
+          "patch_available": true
+        },
+        {
+          "path": "src/locales/de.json",
+          "status": "modified",
+          "blob_sha": "5e364cfc45bfd7f4df637c4f1d3213cfa7e05667",
+          "additions": 7,
+          "deletions": 1,
+          "patch_available": true
+        },
+        {
+          "path": "src/locales/en.json",
+          "status": "modified",
+          "blob_sha": "e0223f56e0df939da2dd0074ced85080b424b8eb",
+          "additions": 7,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/108364531848"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "adopt",
+      "benefit_and_relevance": "Useful small localization fix for retained browser-local project import: six German literals become locale keys. Adapt Spoolman wording to FilaMan, add French and localized weight formatting.",
+      "conflicts_and_dependencies": "Conflicts/overlaps native ProjectImportDialog/Combobox identity, currency and locale work; port only six strings, preserving native behavior.",
+      "license_assets": "Original MIT attribution; no dependency or asset changes.",
+      "verification": "Independently reproduced actual Combobox before/after via compiled SFC + SSR; English fixed, German preserved. French falls back to English. Other five replacements statically checked.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 66,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/66",
+      "title": "fix(api): ignore trailing slash in Spoolman URL",
+      "author": "IdefixRC",
+      "state": "open",
+      "draft": false,
+      "head_sha": "32dbee74c914ba71fd00a1503ce331b08d02b689",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "fix/spoolman-url-trailing-slash",
+      "base_ref": "main",
+      "head_repo": "IdefixRC/spoolman-filament-swatch",
+      "updated_at": "2026-09-26T07:20:54Z",
+      "changed_files": [
+        {
+          "path": "src/api/spoolman.ts",
+          "status": "modified",
+          "blob_sha": "6536e6a772a84d8e64b1630202366ca71fe503dd",
+          "additions": 3,
+          "deletions": 1,
+          "patch_available": true
+        },
+        {
+          "path": "src/composables/useSpoolmanUrl.ts",
+          "status": "modified",
+          "blob_sha": "6cfa2414591d097b82788c9ebee15fafb37b6518",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/108361463335"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Real shared API URL joining bug, but native edition must not keep Spoolman configuration just to use it. Useful to separate PR53 upstream proposal.",
+      "conflicts_and_dependencies": "Touches same useSpoolmanUrl lines as hosted/native work; API fix is independent. All shared API callers inspected.",
+      "license_assets": "MIT; no dependencies/assets.",
+      "verification": "Actual API before/after executed with mocked fetch for trailing slashes/prefix; actual Spoolman HTML-routing failure not exercised.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 65,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/65",
+      "title": "chore(deps-dev): bump js-yaml from 4.1.1 to 4.3.2",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "34990594cde68d7e300d3ad62e5922f31802c98b",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/js-yaml-4.3.2",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-09-13T12:05:45Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "654481cfb51f498c992ade1a6e95114778dc057e",
+          "additions": 15,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/103720748464"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Dev YAML parser hardening for merge-expansion CPU limits; evaluate in maintenance batch.",
+      "conflicts_and_dependencies": "Transitive release/config tooling; lock patch also updates funding metadata.",
+      "license_assets": "Existing MIT.",
+      "verification": "Static only; denial-of-service not reproduced.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 64,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/64",
+      "title": "chore(deps): update dependency sharp to v0.35.4 [security]",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "6b93e58e52898f99710a0fd4a55759af42c0a29f",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/npm-sharp-vulnerability",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-13T12:01:26Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "96ea7247e967f8b7bebd583e91abe91942fc0418",
+          "additions": 121,
+          "deletions": 121,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/103156588413"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "reject",
+      "benefit_and_relevance": "Duplicate sharp/libvips 0.35.4 patch; prefer PR63 which raises direct minimum.",
+      "conflicts_and_dependencies": "Do not import with PR63.",
+      "license_assets": "Apache-2.0 sharp plus bundled libvips/native codec notices need full binary audit.",
+      "verification": "Static diff comparison only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 63,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/63",
+      "title": "chore(deps-dev): bump sharp from 0.35.3 to 0.35.4",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "4e27bc12dadd4c58d0ca075a9201f3b9a83857fe",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/sharp-0.35.4",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-09-11T05:17:25Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "8ce1b41dd90310110bdcbde7fc49684fb9cb31d5",
+          "additions": 122,
+          "deletions": 122,
+          "patch_available": true
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "db3ba95aeff5f8f810b9321ec1d59728a9700483",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/103156345523"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Dev screenshot image processing hardening; not the native reel renderer.",
+      "conflicts_and_dependencies": "Changes many per-platform sharp/libvips optional packages. Verify supported build OS/CPU and screenshot WebP conversion.",
+      "license_assets": "Apache-2.0 sharp; native libvips/codec distribution notices require separate audit.",
+      "verification": "Static diff plus scripts/take-screenshots.mjs caller inspected; malformed-image bug not reproduced.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 62,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/62",
+      "title": "chore(deps): bump fflate from 0.8.2 to 0.8.3",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "241ade91d6cf1062a24e7465f5c005737bf54fce",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/fflate-0.8.3",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-09-03T20:43:12Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "0f370606de1186539aeac24ebd4cf30ce77392d4",
+          "additions": 5,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/100809619292"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "fflate 0.8.3 Zip64 fixes may aid transitive consumers, but application 3MF parsers use JSZip, not fflate directly.",
+      "conflicts_and_dependencies": "Also included in PR59; baseline fflate originates from @types/three. Do not claim this fixes application JSZip parsing.",
+      "license_assets": "Existing MIT.",
+      "verification": "Primary release and app parser imports inspected; claimed application crash not reproduced.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 61,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/61",
+      "title": "chore(deps): update semantic-release monorepo (major)",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "5711a9a76883387c1927d2656605d6e03f97363d",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/major-semantic-release-monorepo",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-11-05T23:55:42Z",
+      "changed_files": [
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "958ef74f8679cda2a67d7bc65a62786ae3b00be9",
+          "additions": 3,
+          "deletions": 3,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/104365203542"
+        }
+      ],
+      "combined_status": "failure",
+      "legacy_statuses": [
+        {
+          "context": "renovate/artifacts",
+          "state": "failure",
+          "description": "Artifact file update failure",
+          "url": null
+        }
+      ],
+      "recommendation": "reject",
+      "benefit_and_relevance": "Incomplete major release-tool update: package.json changes without package-lock, plus failing renovate/artifacts status.",
+      "conflicts_and_dependencies": "Must regenerate lock and redesign for filaman-v tags rather than importing broken release graph.",
+      "license_assets": "MIT family; new graph not audited.",
+      "verification": "Static only; install/CI not run. Concrete lock mismatch visible in diff.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 60,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/60",
+      "title": "chore(deps): update actions/checkout action to v7",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "20e4cf639383b4bf26636b93fdcf96dd14628350",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/actions-checkout-7.x",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-13T12:02:23Z",
+      "changed_files": [
+        {
+          "path": ".github/workflows/deploy.yml",
+          "status": "modified",
+          "blob_sha": "9e2f361ab11f715be6c685ab721c8c97d51f1be9",
+          "additions": 2,
+          "deletions": 2,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/95094221339"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Checkout action major update has no demonstrated plugin bug fix; first settle native release workflow.",
+      "conflicts_and_dependencies": "Only changes two checkout uses in existing upstream Pages/release workflow, not hosted-tests. Runner/runtime requirements unverified.",
+      "license_assets": "No bundled asset/license change; action notices remain upstream.",
+      "verification": "Static only; workflow not executed.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 59,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/59",
+      "title": "fix(deps): update dependency three to ^0.187.0",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "b819babc0f8ea670bec791cee655c2fef62ad93d",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/three-0.x",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-30T18:58:23Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "a1cb4df5a3f799c79782bb1de19eaf01c3d537c5",
+          "additions": 18,
+          "deletions": 25,
+          "patch_available": true
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "cc5314c722838766b2bb6847f7ffa011fb2e0b13",
+          "additions": 2,
+          "deletions": 2,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/124254171986"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Three.js/type upgrade may help retained 3D preview; too broad for an unproven fix.",
+      "conflicts_and_dependencies": "Keep runtime/types aligned. Also upgrades fflate and meshoptimizer; native spool reel must use FilaMan module instead.",
+      "license_assets": "MIT graph; removes BSD-3-Clause @webgpu/types from this graph; re-audit resolved notices.",
+      "verification": "Static diff and ThreeDViewer/threeMFLoader/JSZip callers inspected; no failing 3D fixture reproduced.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 58,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/58",
+      "title": "fix(deps): update dependency lucide-vue-next to ^0.577.0",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "caf0e812a4040985f21e534438978e657df1a290",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/lucide-monorepo",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-08-15T22:04:32Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "880160214543970535fa9d56c711c6305cb6379a",
+          "additions": 7,
+          "deletions": 6,
+          "patch_available": true
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "fd729d370486c7a9279e2396b6cf96710facee7f",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/95076347218"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Icon dependency refresh without a demonstrated required fix.",
+      "conflicts_and_dependencies": "Render all imported lucide icons before adoption; no feature expansion needed.",
+      "license_assets": "Existing ISC notice per lock, full packaged notices still required.",
+      "verification": "Static only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 57,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/57",
+      "title": "chore(deps): update tailwindcss monorepo to v4.3.5",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "795e69e43f68ca3c9a8448f8222b48cb9c461690",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/tailwindcss-monorepo",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-11-06T15:52:29Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "579901dfd3dc673684f81224890a64b12dc7fb00",
+          "additions": 184,
+          "deletions": 154,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/95046434318"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Broad CSS compiler update can alter wheel/theme/layout; no demonstrated issue. PR title says 4.3.5 but pinned actual lock resolves 4.3.3.",
+      "conflicts_and_dependencies": "Touches native platform compiler and lightningcss packages; regression screenshots needed for responsive/alpha/theme layouts.",
+      "license_assets": "MIT Tailwind plus MPL-2.0 lightningcss/native package notices retained.",
+      "verification": "Actual lock diff inspected; title/version discrepancy found. Build and visual regression not run.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 56,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/56",
+      "title": "chore(deps): update dependency tailwind-merge to v3.7.0",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "37eb6fc52e38dfa1a0c7aaf85440fc6f08a1e80a",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/tailwind-merge-3.x-lockfile",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-10-13T12:01:59Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "b4c47c79aa3b37960b78b5c6e0956bdf9b131f1c",
+          "additions": 5,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/103630147150"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Class-merging maintenance without a demonstrated rendering fix.",
+      "conflicts_and_dependencies": "Potential class conflict semantics affect shared UI; validate host styles with PR57 independently.",
+      "license_assets": "Existing MIT.",
+      "verification": "Static only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 55,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/55",
+      "title": "chore(deps): update dependency reka-ui to v2.11.0",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "d64b2e97bfb491136d453ffadd2efae84e799438",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/reka-ui-2.x-lockfile",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-11-05T23:55:12Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "d9c5f8d0429a7bcd87364287382f3081009b3106",
+          "additions": 37,
+          "deletions": 57,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/111684850974"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Shared accessible UI primitive update; no specific reproduced native bug.",
+      "conflicts_and_dependencies": "Roving focus/dialog/combobox behavior and Floating UI graph change; test keyboard/focus and nested iframe dialogs.",
+      "license_assets": "Existing MIT graph; added @floating-ui/vue package notice review required.",
+      "verification": "Static only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 54,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/54",
+      "title": "chore(deps): update dependency puppeteer to v24.43.1",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "9c29fc77062a795b2325fcdc7b71e05410759c4f",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/puppeteer",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-11-02T20:04:38Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "287609e333976f1bd0df9d9164137261e3eef248",
+          "additions": 38,
+          "deletions": 38,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/125519091283"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Useful test/screenshot tool maintenance; also raises ws to 8.22.1, newer than PR49.",
+      "conflicts_and_dependencies": "Coordinate Puppeteer browser installation and hosted browser tests; avoid reapplying PR49.",
+      "license_assets": "Existing Apache-2.0 Puppeteer; MIT ws and new transitive package notices need audit.",
+      "verification": "Static diff and screenshot/hosted test callers inspected; new browser not installed/run.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 53,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/53",
+      "title": "feat: support hosted Spoolman and FilaMan shells",
+      "author": "akira69",
+      "state": "open",
+      "draft": true,
+      "head_sha": "b864db5c03d7d0a7d02476b49467ba1bc47970db",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "fix/pr26-upstream-aligned",
+      "base_ref": "main",
+      "head_repo": "akira69/filaman-filament-swatch",
+      "updated_at": "2026-11-06T15:38:53Z",
+      "changed_files": [
+        {
+          "path": ".github/workflows/hosted-tests.yml",
+          "status": "added",
+          "blob_sha": "bae58e4e504340ef1e2f2af81839e5b9d6ec3fa6",
+          "additions": 24,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "scripts/hosted-mode.test.mjs",
+          "status": "added",
+          "blob_sha": "37f675f9d4aa471f1f0810f55e47245e8743e766",
+          "additions": 178,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "scripts/hosted-query.test.mjs",
+          "status": "added",
+          "blob_sha": "414975111160b7b8cd3e4996c1409ceb58769d88",
+          "additions": 38,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "src/components/AppNavbar.vue",
+          "status": "modified",
+          "blob_sha": "38458b47434057403b8e8a8d4273503af8afdb33",
+          "additions": 12,
+          "deletions": 9,
+          "patch_available": true
+        },
+        {
+          "path": "src/composables/useFilaments.ts",
+          "status": "modified",
+          "blob_sha": "1f0f39109d7d93734c5aaf26ac14a0f8f0936fad",
+          "additions": 6,
+          "deletions": 4,
+          "patch_available": true
+        },
+        {
+          "path": "src/composables/useHostedMode.ts",
+          "status": "added",
+          "blob_sha": "7093b874e43e88ea3c640b267321a95150b39562",
+          "additions": 34,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "src/composables/useSpoolmanUrl.ts",
+          "status": "modified",
+          "blob_sha": "180499e525fb42b60edba0d7265f535ad4183205",
+          "additions": 22,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "src/composables/useTheme.ts",
+          "status": "modified",
+          "blob_sha": "2f3ab8d1d79599febaccc397751ce989a8ebe067",
+          "additions": 19,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "src/locales/de.json",
+          "status": "modified",
+          "blob_sha": "f6f4b6c35682afce619866e731f302704d575cb8",
+          "additions": 3,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "src/locales/en.json",
+          "status": "modified",
+          "blob_sha": "9e912790921e02aa3f8043cfc4f8f2d0d48b2286",
+          "additions": 3,
+          "deletions": 0,
+          "patch_available": true
+        },
+        {
+          "path": "src/main.ts",
+          "status": "modified",
+          "blob_sha": "307ca7420fb77749105c9daf70a8ae8ab4ecb6b9",
+          "additions": 103,
+          "deletions": 17,
+          "patch_available": true
+        },
+        {
+          "path": "src/router/index.ts",
+          "status": "modified",
+          "blob_sha": "ac5922b3e4327cc6712ad143e107c860497fc24c",
+          "additions": 79,
+          "deletions": 59,
+          "patch_available": true
+        },
+        {
+          "path": "src/views/MainApp.vue",
+          "status": "modified",
+          "blob_sha": "5e386bf87b980661a03e0ac705e2ce59339408a5",
+          "additions": 23,
+          "deletions": 15,
+          "patch_available": true
+        },
+        {
+          "path": "vite.config.ts",
+          "status": "modified",
+          "blob_sha": "1a1add6ea0ea4a215de57482723f97eddeeb63d1",
+          "additions": 19,
+          "deletions": 3,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "hosted-tests",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/actions/runs/42244199012/job/127982007284"
+        },
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/127982005166"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "already-present",
+      "benefit_and_relevance": "Hosted foundation is an ancestor of pinned fork baseline; separate PR53 submission audit decides upstream disposition.",
+      "conflicts_and_dependencies": "Not a second import into native edition; native design still adapts/removes compatibility runtime independently.",
+      "license_assets": "MIT; no new third-party assets in its file list.",
+      "verification": "git merge-base --is-ancestor passed for exact PR53 head -> baseline. Separate Task2 owns full submission review.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 52,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/52",
+      "title": "chore(deps): update dependency conventional-commits-parser to v6.4.0",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "9fc143b3fb4ff840bf70d07a8d14362a41ff5ca4",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/conventional-commits-parser-6.x-lockfile",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-08-15T13:39:32Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "af11e92ff4d232794951c7e56a383fc97832a14b",
+          "additions": 19,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/95019528025"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Release commit parser maintenance; little direct plugin benefit.",
+      "conflicts_and_dependencies": "Review with final FilaMan release rules and semantic-release graph; adds @simple-libs/stream-utils.",
+      "license_assets": "Existing/new MIT packages; notices need update.",
+      "verification": "Static only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 51,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/51",
+      "title": "chore(deps): update dependency @vueuse/core to v14.4.0",
+      "author": "renovate[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "7e054abda1f7b04b1d882da0a9186768575aa4e7",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "renovate/vueuse-monorepo",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-08-15T13:39:24Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "dc6ed6841a6ffea775e111fc1151ab2c8b694dcb",
+          "additions": 13,
+          "deletions": 13,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/95019514715"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Shared VueUse update without a demonstrated native bug.",
+      "conflicts_and_dependencies": "Shared UI hooks; pair behavior tests with relevant primitives rather than broad dependency churn.",
+      "license_assets": "Existing MIT.",
+      "verification": "Static only.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 50,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/50",
+      "title": "chore(deps): bump tar and npm",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "3f850e597f3eabe7adc833ba4c368bfb426529b1",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/multi-add3e35349",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-08-15T09:33:40Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "16407f0c595498590863694efff6331da1f061cf",
+          "additions": 205,
+          "deletions": 367,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/94994837495"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "npm/tar extraction maintenance in dev release graph; not a native inventory/archive runtime fix.",
+      "conflicts_and_dependencies": "Large transitive npm/tar/sigstore overlap with PR48/47; regenerate once after release strategy chosen.",
+      "license_assets": "npm Artistic-2.0, tar ISC and Apache-2.0 Sigstore graph; full notice audit required.",
+      "verification": "Static only; archive extraction exploit not reproduced.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 49,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/49",
+      "title": "chore(deps-dev): bump ws from 8.19.0 to 8.21.3",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "513581bf5364739142e18694d7447c566559f4e2",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/ws-8.21.3",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-08-15T09:33:32Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "061f50dcb117e0f2a1df88cf01908fd8d4f50ef8",
+          "additions": 5,
+          "deletions": 5,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/94994823751"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "reject",
+      "benefit_and_relevance": "Direct ws 8.21.3 bump is superseded by PR54's ws 8.22.1 if that test-tool update is selected.",
+      "conflicts_and_dependencies": "Do not downgrade PR54 resolved ws or apply twice.",
+      "license_assets": "Existing MIT.",
+      "verification": "Static comparison only; PR54 not yet adopted.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 48,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/48",
+      "title": "chore(deps): bump @sigstore/core and semantic-release",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "47115bb3e0defcf2e5aa295e4984aa5e1d3972c9",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/multi-3df284a848",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-08-15T09:33:31Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "89dff40fbb6d34aa6f4a7c6805ed9110b60f6b64",
+          "additions": 1189,
+          "deletions": 1454,
+          "patch_available": false
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "8760cfb25122c117903d268dbbf935c635b3ccf4",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/94994824121"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "defer",
+      "benefit_and_relevance": "Release signing dependency maintenance is useful only with chosen FilaMan release implementation.",
+      "conflicts_and_dependencies": "Major semantic-release ^25.0.9; large lock change, identical file blob SHAs to PR47. Needs Node/runtime and dry-run validation.",
+      "license_assets": "Sigstore Apache-2.0 plus release graph notices; full graph not audited.",
+      "verification": "Static metadata/direct manifest inspected; GitHub omitted oversized lock patch, so not a completed full diff review.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    },
+    {
+      "number": 47,
+      "url": "https://github.com/Disane87/spoolman-filament-swatch/pull/47",
+      "title": "chore(deps): bump sigstore and semantic-release",
+      "author": "dependabot[bot]",
+      "state": "open",
+      "draft": false,
+      "head_sha": "b228c41d1c9ea683285010cc2547174807310349",
+      "base_sha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "head_ref": "dependabot/npm_and_yarn/multi-1bbc8df20f",
+      "base_ref": "main",
+      "head_repo": "Disane87/spoolman-filament-swatch",
+      "updated_at": "2026-08-15T09:33:30Z",
+      "changed_files": [
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob_sha": "89dff40fbb6d34aa6f4a7c6805ed9110b60f6b64",
+          "additions": 1189,
+          "deletions": 1454,
+          "patch_available": false
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob_sha": "8760cfb25122c117903d268dbbf935c635b3ccf4",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true
+        }
+      ],
+      "reviews": [],
+      "check_runs": [
+        {
+          "name": "GitGuardian Security Checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Disane87/spoolman-filament-swatch/runs/94994821742"
+        }
+      ],
+      "combined_status": "pending",
+      "legacy_statuses": [],
+      "recommendation": "reject",
+      "benefit_and_relevance": "Same package.json and package-lock blob SHAs as PR48; choose one future release maintenance path.",
+      "conflicts_and_dependencies": "Exact file-content duplicate of PR48 at different head; no second import.",
+      "license_assets": "Same as PR48.",
+      "verification": "File blob identity verified; oversized lock patch unavailable in files endpoint.",
+      "adoption_status": "not imported by this triage; recommendation only",
+      "mergeability": "not computed; integration overlaps are static predictions"
+    }
+  ],
+  "adopted": [
+    {
+      "pr": 68,
+      "headSha": "1f133caa5a7f79c592a82f4da22e2c69a2af69c4",
+      "baseSha": "935d3496df98faaec18e38aa4eba18c43d246c2f",
+      "patchId": "66d407454d1e48e2af905f3e96b052e0b2d131d7",
+      "localCommit": "54d7cb3c43a21fe519c110cbe264f0814053baca",
+      "decision": "adapt",
+      "reason": "Historically adapted six import strings with French and FilaMan wording. The native edition subsequently removed Projects and its importer. Credit: IdefixRC. Original adoption commit and patch identity retained.",
+      "paths": [
+        "src/components/FilamentCombobox.vue",
+        "src/components/ProjectImportDialog.vue",
+        "src/locales/en.json",
+        "src/locales/de.json"
+      ]
+    }
+  ]
+}

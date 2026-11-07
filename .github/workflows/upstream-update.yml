@@ -1,0 +1,47 @@
+name: Propose upstream updates
+on:
+  schedule:
+    - cron: '17 8 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Inspect without creating a branch or PR
+        type: boolean
+        default: true
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+concurrency:
+  group: upstream-update
+  cancel-in-progress: false
+jobs:
+  propose:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Evaluate and propose
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = true ]; then
+            node scripts/sync-upstream.mjs --dry-run
+          else
+            node scripts/sync-upstream.mjs
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upstream-review
+          path: _upstream-artifacts/

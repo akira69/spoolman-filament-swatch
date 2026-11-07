@@ -2,9 +2,7 @@ import { computed, type Ref } from 'vue';
 import { colorDistance, getHue, hueDifference } from '@/lib/colorUtils';
 import type { FilamentCard } from './useFilaments';
 
-export interface ColorHarmonyResult extends FilamentCard {
-  distance: number;
-}
+export type ColorHarmonyResult = FilamentCard & { distance: number };
 
 export function useColorHarmonies(
   filament: Ref<FilamentCard | null>,
@@ -42,6 +40,22 @@ export function useColorHarmonies(
       .slice(0, 5);
   });
 
+  const hues = computed(() => allFilaments.value.map(item => ({item, hue:getHue(item.colorHex)})));
+
+  const findClosest = (targetHue: number): ColorHarmonyResult | undefined => {
+    let closest: FilamentCard | undefined;
+    let distance = Infinity;
+    for (const {item, hue} of hues.value) {
+      if (item.id === filament.value?.id) continue;
+      const candidate = hueDifference(hue, targetHue);
+      if (candidate < distance) {
+        closest = item;
+        distance = candidate;
+      }
+    }
+    return closest && { ...closest, distance };
+  };
+
   const analogousColors = computed((): (ColorHarmonyResult | undefined)[] => {
     if (!filament.value) return [];
 
@@ -49,17 +63,6 @@ export function useColorHarmonies(
     const analogHue1 = (currentHue + 30) % 360;
     const analogHue2 = (currentHue - 30 + 360) % 360;
 
-    const findClosest = (targetHue: number): ColorHarmonyResult | undefined => {
-      const result = allFilaments.value
-        .filter(f => f.id !== filament.value!.id)
-        .map(f => {
-          const fHue = getHue(f.colorHex);
-          const distance = hueDifference(fHue, targetHue);
-          return { ...f, distance };
-        })
-        .sort((a, b) => a.distance - b.distance)[0];
-      return result;
-    };
 
     return [findClosest(analogHue1), findClosest(analogHue2)].filter(Boolean);
   });
@@ -71,17 +74,6 @@ export function useColorHarmonies(
     const splitHue1 = (currentHue + 150) % 360;
     const splitHue2 = (currentHue + 210) % 360;
 
-    const findClosest = (targetHue: number): ColorHarmonyResult | undefined => {
-      const result = allFilaments.value
-        .filter(f => f.id !== filament.value!.id)
-        .map(f => {
-          const fHue = getHue(f.colorHex);
-          const distance = hueDifference(fHue, targetHue);
-          return { ...f, distance };
-        })
-        .sort((a, b) => a.distance - b.distance)[0];
-      return result;
-    };
 
     return [findClosest(splitHue1), findClosest(splitHue2)].filter(Boolean);
   });
@@ -93,17 +85,6 @@ export function useColorHarmonies(
     const triadHue1 = (currentHue + 120) % 360;
     const triadHue2 = (currentHue + 240) % 360;
 
-    const findClosest = (targetHue: number): ColorHarmonyResult | undefined => {
-      const result = allFilaments.value
-        .filter(f => f.id !== filament.value!.id)
-        .map(f => {
-          const fHue = getHue(f.colorHex);
-          const distance = hueDifference(fHue, targetHue);
-          return { ...f, distance };
-        })
-        .sort((a, b) => a.distance - b.distance)[0];
-      return result;
-    };
 
     const colors = [
       filament.value,

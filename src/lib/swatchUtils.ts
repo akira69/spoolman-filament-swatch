@@ -1,6 +1,6 @@
-export interface SwatchStyle {
-  background: string;
-}
+import { normalizeColor } from './colorUtils';
+import type {CSSProperties} from 'vue';
+export type SwatchStyle=CSSProperties;
 
 export type MultiColorDirection = 'coaxial' | 'longitudinal';
 
@@ -22,7 +22,7 @@ export const HIGHLIGHT_GRADIENT = 'radial-gradient(circle at 36% 26%, rgba(255,2
  * Gets the appropriate material layer based on material type
  */
 export function getMaterialLayer(material: string): string {
-  const mat = material.toLowerCase();
+  const mat = (material ?? '').toLowerCase();
   if (mat.includes('petg')) return MATERIAL_OVERLAYS.petg;
   if (mat.includes('abs')) return MATERIAL_OVERLAYS.abs;
   return MATERIAL_OVERLAYS.pla;
@@ -31,8 +31,9 @@ export function getMaterialLayer(material: string): string {
 /**
  * Creates a gradient for multi-color filaments
  */
-export function getMultiColorGradient(colors: string[], direction: MultiColorDirection = 'longitudinal'): string {
-  if (direction === 'coaxial') {
+export function getMultiColorGradient(colors: string[], direction: MultiColorDirection = 'longitudinal', style?:'striped'|'gradient'): string {
+  if(style==='striped')return `linear-gradient(90deg, ${colors.flatMap((color,i)=>[`${color} ${i/colors.length*100}%`,`${color} ${(i+1)/colors.length*100}%`]).join(', ')})`;
+  if (!style && direction === 'coaxial') {
     const stops = colors.map((c, i) => {
       const center = (i / (colors.length - 1)) * 100;
       const spread = 15;
@@ -48,14 +49,15 @@ export function getMultiColorGradient(colors: string[], direction: MultiColorDir
     const percent = (i / (colors.length - 1)) * 100;
     return `${c} ${percent}%`;
   }).join(', ');
-  return `linear-gradient(135deg, ${stops})`;
+  return `linear-gradient(90deg, ${stops})`;
 }
 
 /**
  * Creates the base shade gradient for single-color swatches
  */
 export function getBaseShade(colorHex: string): string {
-  return `${HIGHLIGHT_GRADIENT}, linear-gradient(145deg, ${colorHex} 0%, rgba(0,0,0,0.22) 115%)`;
+  // Shade an opaque color, never the theme surface beneath the swatch.
+  return `${HIGHLIGHT_GRADIENT}, linear-gradient(145deg, transparent 0%, rgba(0,0,0,0.22) 115%), ${colorHex}`;
 }
 
 /**
@@ -65,13 +67,17 @@ export function getSwatchStyle(
   colorHex: string,
   material: string,
   multiColorHexes?: string[],
-  multiColorDirection?: MultiColorDirection
+  multiColorDirection?: MultiColorDirection,
+  nativeColorStyle?:'striped'|'gradient'
 ): SwatchStyle {
   const materialLayer = getMaterialLayer(material);
 
+  const checker = 'repeating-conic-gradient(#aaa 0% 25%, #eee 0% 50%) 0 0 / 12px 12px';
+  const transparent = (multiColorHexes ?? [colorHex]).some(c=>(normalizeColor(c)?.alpha ?? 1)<1);
+  if (transparent) return {background: `${multiColorHexes && multiColorHexes.length>1 ? getMultiColorGradient(multiColorHexes,multiColorDirection,nativeColorStyle) : `linear-gradient(${colorHex},${colorHex})`}, ${checker}`};
   // Multi-color gradient logic
   if (multiColorHexes && multiColorHexes.length > 1) {
-    const colorGradient = getMultiColorGradient(multiColorHexes, multiColorDirection);
+    const colorGradient = getMultiColorGradient(multiColorHexes, multiColorDirection,nativeColorStyle);
     return {
       background: [HIGHLIGHT_GRADIENT, materialLayer, colorGradient].join(', '),
     };
@@ -90,12 +96,11 @@ export function getSwatchStyle(
 export function getFlatSwatchStyle(
   colorHex: string,
   multiColorHexes?: string[],
-  multiColorDirection?: MultiColorDirection
+  multiColorDirection?: MultiColorDirection,
+  nativeColorStyle?:'striped'|'gradient'
 ): SwatchStyle {
-  if (multiColorHexes && multiColorHexes.length > 1) {
-    return {
-      background: getMultiColorGradient(multiColorHexes, multiColorDirection),
-    };
-  }
-  return { background: colorHex };
+  const checker = 'repeating-conic-gradient(#aaa 0% 25%, #eee 0% 50%) 0 0 / 12px 12px';
+  const fill = multiColorHexes && multiColorHexes.length>1 ? getMultiColorGradient(multiColorHexes,multiColorDirection,nativeColorStyle) : `linear-gradient(${colorHex},${colorHex})`;
+  return {background:`${fill}, ${checker}`};
+
 }

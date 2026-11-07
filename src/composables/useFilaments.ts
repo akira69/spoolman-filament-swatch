@@ -1,426 +1,186 @@
-import { computed, reactive, ref, watch } from "vue";
-import {
-  fetchSpoolmanFilaments,
-  fetchSpoolmanMaterials,
-  fetchSpoolmanVendors,
-  fetchSpoolmanLocations,
-  fetchSpoolmanSpools,
-  type SpoolmanFilament,
-  type SpoolmanMaterial,
-  type SpoolmanVendor,
-  type SpoolmanSpool,
-} from "../api/spoolman";
-import {
-  fetchExternalFilaments,
-  type ExternalFilament,
-} from "../api/external-filaments";
-import {
-  fetchSpoolmanDBFilaments,
-  fetchSpoolmanDBMaterials,
-  type SpoolmanDBFilament,
-  type SpoolmanDBMaterial,
-} from "../api/spoolmandb";
-import { useSpoolmanUrl } from "./useSpoolmanUrl";
-import { ensureHex, getColorMetrics } from "@/lib/colorUtils";
+import { computed, reactive, ref, shallowReactive, watch } from 'vue';
+import {confirmHostIdentity, verifyHostIdentity} from '../filaman/context';
+import {readDiscoveryState,saveDiscoveryState} from '../filaman/discovery-state';
+import type {Router} from 'vue-router';
+import { NativeApiError, loadInventory, loadCatalog } from '../api/filaman';
+import { getColorMetrics } from '../lib/colorUtils';
+import type { DiscoveryItem, DiscoveryMode, InventoryItem } from '../types/discovery';
 
-export type FilamentCard = {
-  id: string;
-  name: string;
-  vendor: string;
-  material: string;
-  colorHex: string;
-  colorName: string;
-  source: "spoolman" | "external";
-  multiColorHexes?: string[];
-  multiColorDirection?: "coaxial" | "longitudinal";
-  price?: number | null;
-  density?: number | null;
-  diameter?: number | null;
-  weight?: number | null;
-  spoolWeight?: number | null;
-  extruderTemp?: number | null;
-  bedTemp?: number | null;
-  articleNumber?: string | null;
-  comment?: string | null;
-  locations?: string[];
-  totalRemainingWeight?: number | null;
-  spoolCount?: number;
-  spools?: Array<{
-    id: number;
-    location?: string | null;
-    remainingWeight?: number | null;
-    usedWeight?: number | null;
-    archived?: boolean | null;
-  }>;
+// Optional inventory projections keep upstream views small; catalog records never invent them.
+export type FilamentCard = DiscoveryItem & Partial<Omit<InventoryItem, keyof DiscoveryItem>> & {
+  locations?: string[]; hasSpools?: boolean; hasOnHandSpools?: boolean; onHandSpoolCount?: number;
+  totalRemainingWeight?: number | null; spoolCount?: number; multiColorDirection?: 'coaxial'|'longitudinal';
 };
-
-type SortField = "name" | "vendor" | "material" | "source" | "hue" | "luminance" | "lightness";
-type SortDir = "asc" | "desc";
-
-const normalizeVendor = (value: SpoolmanFilament["vendor"]) => {
-  if (!value) return "Unknown";
-  return value.name || "Unknown";
-};
-
-const normalizeMaterial = (value: SpoolmanFilament["material"]) => {
-  if (!value) return "Unknown";
-  return value;
-};
-
-
-const normalizeSpoolmanFilament = (
-  filament: SpoolmanFilament,
-): FilamentCard => {
-  const hasMultiColor = filament.multi_color_hexes && filament.multi_color_hexes.trim().length > 0;
-  const multiColorHexes = hasMultiColor
-    ? filament.multi_color_hexes!.split(',').map(h => ensureHex(h.trim()))
-    : undefined;
-
-  const colorHex = hasMultiColor ? multiColorHexes![0] : ensureHex(filament.color_hex);
-
-  return {
-    id: `filament-${filament.id}`,
-    name: filament.name || `Filament ${filament.id}`,
-    vendor: normalizeVendor(filament.vendor),
-    material: normalizeMaterial(filament.material),
-    colorHex,
-    colorName: colorHex.toUpperCase(),
-    source: "spoolman",
-    multiColorHexes,
-    multiColorDirection: filament.multi_color_direction ?? undefined,
-    price: filament.price ?? null,
-    density: filament.density ?? null,
-    diameter: filament.diameter ?? null,
-    weight: filament.weight ?? null,
-    spoolWeight: filament.spool_weight ?? null,
-    extruderTemp: filament.settings_extruder_temp ?? null,
-    bedTemp: filament.settings_bed_temp ?? null,
-    articleNumber: filament.article_number ?? null,
-    comment: filament.comment ?? null,
-  };
-};
-
-
-
-const normalizeExternal = (filament: ExternalFilament): FilamentCard => ({
-  id: filament.id,
-  name: filament.name,
-  vendor: filament.vendor,
-  material: filament.material,
-  colorHex: ensureHex(filament.colorHex),
-  colorName: filament.colorName,
-  source: "external",
-});
-
-const normalizeSpoolmanDB = (filament: SpoolmanDBFilament, index: number): FilamentCard => {
-  const name = filament.name || `Filament ${index + 1}`;
-  const vendor = filament.manufacturer || "Unknown";
-  const material = filament.material || "Unknown";
-  const colorHex = ensureHex(filament.color_hex);
-
-  return {
-    id: `spoolmandb-${filament.id || index}`,
-    name,
-    vendor,
-    material,
-    colorHex,
-    colorName: colorHex.toUpperCase(),
-    source: "external",
-    density: filament.density ?? null,
-    diameter: filament.diameters?.[0] ?? null,
-    extruderTemp: filament.extruder_temp ?? null,
-    bedTemp: filament.bed_temp ?? null,
-  };
-};
-
-// Singleton instance
-let instance: ReturnType<typeof useFilaments> | null = null;
-
-export const useFilaments = () => {
-  if (!instance) {
-    instance = createFilamentsComposable();
+export type InventoryScope = 'filaments'|'all_spools'|'on_hand_spools'|'everything';
+const defaults=()=>({search:'',vendor:'all',material:'all',source:'filaman',inventoryScope:'filaments' as InventoryScope,
+  sortField:'name',sortDir:'asc',color:'all',colorType:'all',location:'all'});
+export type DiscoveryFilters=ReturnType<typeof defaults>;
+let instance: ReturnType<typeof createFilamentsComposable> | null = null;
+const nameCollator = new Intl.Collator(undefined, {sensitivity:'base'});
+export const useFilaments=()=>instance ??= createFilamentsComposable();
+function createFilamentsComposable() {
+  const params=new URLSearchParams(window.location.search);
+  const saved=readDiscoveryState();
+  const explicitFilters=['q','v','m','c','l','i','sort','dir','ct'].some(key=>params.has(key));
+  const explicit=params.has('mode')||explicitFilters;
+  const mode=ref<DiscoveryMode>(explicit ? (params.get('mode')==='catalog'?'catalog':'inventory') : saved.mode ?? 'inventory');
+  const filters=reactive(defaults());
+  const states={inventory:defaults(),catalog:defaults()};
+  const keys={search:'q',vendor:'v',material:'m',color:'c',location:'l',inventoryScope:'i',sortField:'sort',sortDir:'dir',colorType:'ct'};
+  for(const choice of ['inventory','catalog'] as const)for(const key of Object.keys(defaults()))if(typeof saved.filters?.[choice]?.[key]==='string')(states[choice] as any)[key]=saved.filters[choice][key];
+  Object.assign(filters,states[mode.value]);
+  if(explicitFilters){Object.assign(filters,defaults());for(const [key,param] of Object.entries(keys))if(params.has(param))(filters as any)[key]=params.get(param);}
+  const snapshots=shallowReactive<Record<DiscoveryMode,FilamentCard[]|null>>({inventory:null,catalog:null});
+  let catalogEtag: string | undefined;
+  const stale={inventory:false,catalog:false};
+  const errors=reactive<Record<DiscoveryMode,string|null>>({inventory:null,catalog:null});
+  const loadings=reactive({inventory:false,catalog:false});
+  const loading=computed(()=>loadings[mode.value]);
+  const allFilaments=computed(()=>snapshots[mode.value] ?? []);
+  const error=computed(()=>errors[mode.value]);
+  const controllers:Partial<Record<DiscoveryMode,AbortController>>={};
+  const generations={inventory:0,catalog:0};
+  const requests:Partial<Record<DiscoveryMode,Promise<void>>>={};
+  let router:Router|null=null;let switching=false;
+  function project(item:DiscoveryItem):FilamentCard {
+    if(item.kind==='catalog')return item;
+    const weights=item.spools.filter(s=>s.onHand).map(s=>s.remainingWeightG);
+    return {...item,locations:[...new Set(item.spools.flatMap(s=>s.location?[s.location]:[]))],
+      hasSpools:item.spools.length>0,spoolCount:item.spools.length,
+      hasOnHandSpools:item.spools.some(s=>s.onHand),onHandSpoolCount:item.spools.filter(s=>s.onHand).length,
+      totalRemainingWeight:weights.every(w=>w!==null)?weights.reduce<number>((a,b)=>a+(b??0),0):null};
   }
-  return instance;
-};
-
-const createFilamentsComposable = () => {
-  const loading = ref(false);
-  const error = ref<string | null>(null);
-  const allFilaments = ref<FilamentCard[]>([]);
-  const spoolmanMaterials = ref<SpoolmanMaterial[]>([]);
-  const spoolmanVendors = ref<SpoolmanVendor[]>([]);
-  const spoolmanLocations = ref<string[]>([]);
-  const { resolvedBaseUrl, hasUrl } = useSpoolmanUrl();
-
-  // Read query parameters from URL (case-insensitive)
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialSearch = urlParams.get('q') || '';
-  const initialVendor = urlParams.get('v')?.toLowerCase() || 'all';
-  const initialMaterial = urlParams.get('m')?.toLowerCase() || 'all';
-  const initialColor = urlParams.get('c')?.toLowerCase() || 'all';
-  const initialLocation = urlParams.get('l')?.toLowerCase() || 'all';
-  const initialSource = urlParams.get('s')?.toLowerCase() || 'spoolman';
-
-  const filters = reactive({
-    search: initialSearch,
-    vendor: initialVendor,
-    material: initialMaterial,
-    source: initialSource,
-    sortField: "name" as SortField,
-    sortDir: "asc" as SortDir,
-    color: initialColor as string,
-    colorType: "all" as "all" | "single" | "multi",
-    location: initialLocation,
-  });
-
-  const load = async () => {
-    loading.value = true;
-    error.value = null;
-    try {
-      const baseUrl = resolvedBaseUrl.value;
-
-      // Only load Spoolman data if a URL is configured
-      const shouldLoadSpoolman = hasUrl.value && baseUrl.trim().length > 0;
-      // Only load external data sources if not filtering for spoolman only
-      const shouldLoadExternal = filters.source !== "spoolman";
-
-      const [filaments, materials, vendors, locations, spools, external, spoolmanDBFilaments, spoolmanDBMaterials] = await Promise.all([
-        shouldLoadSpoolman ? fetchSpoolmanFilaments(baseUrl).catch(() => [] as SpoolmanFilament[]) : Promise.resolve([] as SpoolmanFilament[]),
-        shouldLoadSpoolman ? fetchSpoolmanMaterials(baseUrl).catch(() => [] as SpoolmanMaterial[]) : Promise.resolve([] as SpoolmanMaterial[]),
-        shouldLoadSpoolman ? fetchSpoolmanVendors(baseUrl).catch(() => [] as SpoolmanVendor[]) : Promise.resolve([] as SpoolmanVendor[]),
-        shouldLoadSpoolman ? fetchSpoolmanLocations(baseUrl).catch(() => [] as string[]) : Promise.resolve([] as string[]),
-        shouldLoadSpoolman ? fetchSpoolmanSpools(baseUrl).catch(() => [] as SpoolmanSpool[]) : Promise.resolve([] as SpoolmanSpool[]),
-        shouldLoadExternal ? fetchExternalFilaments().catch(() => [] as ExternalFilament[]) : Promise.resolve([] as ExternalFilament[]),
-        shouldLoadExternal ? fetchSpoolmanDBFilaments().catch(() => [] as SpoolmanDBFilament[]) : Promise.resolve([] as SpoolmanDBFilament[]),
-        shouldLoadExternal ? fetchSpoolmanDBMaterials().catch(() => [] as SpoolmanDBMaterial[]) : Promise.resolve([] as SpoolmanDBMaterial[]),
-      ]);
-
-      spoolmanMaterials.value = materials;
-      spoolmanVendors.value = vendors;
-      spoolmanLocations.value = locations;
-
-      // Create a map of filament_id -> spool data
-      const filamentSpoolsMap = new Map<number, {
-        locations: string[],
-        totalWeight: number,
-        count: number,
-        spools: Array<{
-          id: number;
-          location?: string | null;
-          remainingWeight?: number | null;
-          usedWeight?: number | null;
-          archived?: boolean | null;
-        }>
-      }>();
-
-      spools.forEach((spool) => {
-        if (spool.filament?.id) {
-          const filamentId = spool.filament.id;
-          const existing = filamentSpoolsMap.get(filamentId) || {
-            locations: [],
-            totalWeight: 0,
-            count: 0,
-            spools: []
-          };
-
-          if (spool.location && !existing.locations.includes(spool.location)) {
-            existing.locations.push(spool.location);
-          }
-          if (spool.remaining_weight) {
-            existing.totalWeight += spool.remaining_weight;
-          }
-          existing.count += 1;
-
-          // Add full spool data
-          existing.spools.push({
-            id: spool.id,
-            location: spool.location,
-            remainingWeight: spool.remaining_weight ?? null,
-            usedWeight: spool.used_weight ?? null,
-            archived: spool.archived ?? false
-          });
-
-          filamentSpoolsMap.set(filamentId, existing);
+  function loadMode(target:DiscoveryMode,force=true):Promise<void> {
+    if(!force && requests[target])return requests[target]!;
+    if(!force && snapshots[target] && !stale[target])return Promise.resolve();
+    controllers[target]?.abort();const current=++generations[target];
+    const controller=new AbortController();controllers[target]=controller;
+    loadings[target]=true;errors[target]=null;
+    const request=(async()=>{
+      try {
+        const profile = await verifyHostIdentity();
+        if (!profile || controller.signal.aborted) return;
+        const outcome = await (target === 'inventory'
+          ? loadInventory(controller.signal)
+          : loadCatalog(controller.signal, snapshots.catalog ? catalogEtag : undefined))
+          .then(result => ({result}), error => ({error}));
+        if (controller.signal.aborted) return;
+        if ('error' in outcome && outcome.error instanceof NativeApiError) {
+          const {status} = outcome.error;
+          if (status === 401 || status === 403) snapshots[target] = null;
+          if (status === 401) throw outcome.error;
         }
-      });
-
-      allFilaments.value = [
-        ...filaments.map((item) => {
-          const card = normalizeSpoolmanFilament(item);
-          const spoolData = filamentSpoolsMap.get(item.id);
-          if (spoolData) {
-            card.locations = spoolData.locations;
-            card.totalRemainingWeight = spoolData.totalWeight > 0 ? spoolData.totalWeight : null;
-            card.spoolCount = spoolData.count;
-            card.spools = spoolData.spools;
-          }
-          return card;
-        }),
-        ...external.map(normalizeExternal),
-        ...spoolmanDBFilaments.map((item, index) => normalizeSpoolmanDB(item, index)),
-      ];
-    } catch (err) {
-      error.value = err instanceof Error ? err.message : "Unknown error";
-    } finally {
-      loading.value = false;
+        const confirmed = await confirmHostIdentity();
+        if (current !== generations[target] || confirmed?.userId !== profile.userId) return;
+        if ('error' in outcome) throw outcome.error;
+        if (outcome.result) {
+          snapshots[target] = outcome.result.items.map(project);
+          if (target === 'catalog') catalogEtag = 'etag' in outcome.result ? outcome.result.etag : undefined;
+        }
+        stale[target] = false;
+      }catch(e){
+        if(current===generations[target] && !(e instanceof Error && e.name==='AbortError')) {
+          errors[target]=e instanceof Error?e.message:String(e);
+          if(e instanceof NativeApiError && (e.status===401 || e.status===403))snapshots[target]=null;
+        }
+      }finally{if(current===generations[target]){loadings[target]=false;delete requests[target];}}
+    })();
+    requests[target]=request;return request;
+  }
+  function discoveryQuery() {
+    const query=new URLSearchParams(window.location.search);
+    for(const [key,param] of Object.entries(keys)) {
+      query.delete(param);const value=(filters as any)[key];
+      if(value !== (defaults() as any)[key])query.set(param,value);
+    }
+    query.delete('s');query.set('mode',mode.value);
+    return Object.fromEntries(query);
+  }
+  function sync(push=false) {
+    Object.assign(states[mode.value],filters);
+    const query=discoveryQuery();
+    if(router)return router[push?'push':'replace']({query});
+    saveDiscoveryState({mode:mode.value,filters:states});
+    window.history[push?'pushState':'replaceState'](window.history.state??{},'',`${window.location.pathname}?${new URLSearchParams(query)}`);
+    return Promise.resolve();
+  }
+  async function setDiscoveryMode(next:DiscoveryMode,history=true) {
+    if(next===mode.value)return;
+    stale[next]=true;
+    Object.assign(states[mode.value],filters);switching=true;
+    mode.value=next;Object.assign(filters,states[next]);
+    await sync(history);switching=false;await loadMode(next,false);
+  }
+  function hydrate(query:URLSearchParams) {
+    const next=query.get('mode')==='catalog'?'catalog':'inventory';
+    if(next!==mode.value)stale[next]=true;
+    const nextFilters = defaults();
+    for(const [key,param] of Object.entries(keys))if(query.has(param))(nextFilters as any)[key]=query.get(param);
+    switching=true;mode.value=next;Object.assign(filters,nextFilters);
+    Object.assign(states[next],filters);
+    saveDiscoveryState({mode:next,filters:states});
+    switching=false;void loadMode(next,false);
+  }
+  function connectRouter(value:Router) {
+    router=value;
+    if(!explicitFilters)void sync();
+    return router.afterEach((to,_from,failure)=>{if(!failure && to.name==='swatch')hydrate(new URLSearchParams(Object.entries(to.query).flatMap(([key,value])=>typeof value==='string'?[[key,value]]:[])));});
+  }
+  watch(()=>({...filters}),()=>{if(!switching)void sync();},{flush:'sync'});
+  window.addEventListener('popstate',()=>{if(!router)hydrate(new URLSearchParams(window.location.search));});
+  const refresh=()=>loadMode(mode.value);
+  const refreshCachedModes = () => {
+    for (const target of ['inventory', 'catalog'] as const) {
+      if (target === mode.value || snapshots[target] || requests[target]) void loadMode(target);
     }
   };
-
-  // Sync filters to URL query string
-  watch(() => ({ ...filters }), (newFilters) => {
-    const params = new URLSearchParams();
-
-    if (newFilters.search) {
-      params.set('q', newFilters.search);
+  const parent = window.parent;
+  const doc = typeof document === 'undefined' ? undefined : document;
+  const refreshVisible = () => {
+    if (doc?.visibilityState === 'visible') refreshCachedModes();
+  };
+  const onRestore = (event: PageTransitionEvent) => {
+    if (event.persisted) refreshCachedModes();
+  };
+  window.addEventListener('focus', refreshCachedModes);
+  doc?.addEventListener('visibilitychange', refreshVisible);
+  window.addEventListener('pageshow', onRestore);
+  if (parent && parent !== window) {
+    parent.addEventListener('focus', refreshCachedModes);
+    parent.document.addEventListener('visibilitychange', refreshVisible);
+    window.addEventListener('pagehide', function releaseParentListeners(event) {
+      if ((event as PageTransitionEvent).persisted) return;
+      parent.removeEventListener('focus', refreshCachedModes);
+      parent.document.removeEventListener('visibilitychange', refreshVisible);
+    });
+  }
+  const sorted=computed(()=>{
+    const direction = filters.sortDir === 'desc' ? -1 : 1;
+    const field = filters.sortField;
+    const items = allFilaments.value;
+    if (field === 'hue' || field === 'luminance' || field === 'lightness') {
+      return items.map(item => ({item, value:getColorMetrics(item.colorHex)[field]}))
+        .sort((a,b) => direction*(a.value-b.value)).map(entry => entry.item);
     }
-    if (newFilters.vendor && newFilters.vendor !== 'all') {
-      params.set('v', newFilters.vendor);
-    }
-    if (newFilters.material && newFilters.material !== 'all') {
-      params.set('m', newFilters.material);
-    }
-    if (newFilters.color && newFilters.color !== 'all') {
-      params.set('c', newFilters.color);
-    }
-    if (newFilters.location && newFilters.location !== 'all') {
-      params.set('l', newFilters.location);
-    }
-    if (newFilters.source && newFilters.source !== 'all') {
-      params.set('s', newFilters.source);
-    }
-
-    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
-    window.history.replaceState({}, '', newUrl);
+    return [...items].sort((a,b)=>direction*nameCollator.compare(String((a as any)[field]??''),String((b as any)[field]??'')));
   });
-
-  const filtered = computed(() => {
+  const filtered=computed(()=>{
     const search = filters.search.toLowerCase();
-    const result = allFilaments.value.filter((item) => {
-      if (filters.source !== "all" && item.source !== filters.source) {
-        return false;
-      }
-      if (filters.vendor !== "all" && item.vendor.toLowerCase() !== filters.vendor.toLowerCase()) {
-        return false;
-      }
-      if (filters.material !== "all" && item.material.toLowerCase() !== filters.material.toLowerCase()) {
-        return false;
-      }
-      if (filters.color !== "all" && item.colorHex.toLowerCase() !== filters.color.toLowerCase()) {
-        return false;
-      }
-      if (filters.location !== "all") {
-        if (!item.locations || !item.locations.some(loc => loc.toLowerCase() === filters.location.toLowerCase())) {
-          return false;
-        }
-      }
-      if (filters.colorType !== "all") {
-        const isMultiColor = item.multiColorHexes && item.multiColorHexes.length > 1;
-        if (filters.colorType === "multi" && !isMultiColor) return false;
-        if (filters.colorType === "single" && isMultiColor) return false;
-      }
-      if (!search) return true;
-      return (
-        item.name.toLowerCase().includes(search) ||
-        item.vendor.toLowerCase().includes(search) ||
-        item.material.toLowerCase().includes(search) ||
-        item.colorName.toLowerCase().includes(search) ||
-        item.colorHex.toLowerCase().includes(search)
-      );
+    return sorted.value.filter(item=>{
+    if(filters.color!=='all' && item.colorHex.toLowerCase()!==filters.color.toLowerCase())return false;
+    if(filters.colorType!=='all' && (filters.colorType==='multi') !== (item.colors.length>1))return false;
+    if(item.kind==='inventory') {
+      if(filters.vendor!=='all' && item.vendor?.toLowerCase()!==filters.vendor.toLowerCase())return false;
+      if(filters.material!=='all' && item.material.toLowerCase()!==filters.material.toLowerCase())return false;
+      if((filters.location!=='all' || ['all_spools','on_hand_spools'].includes(filters.inventoryScope)) &&
+        !item.spools?.some(spool=>(filters.inventoryScope!=='on_hand_spools' || spool.onHand) &&
+          (filters.location==='all' || spool.location?.toLowerCase()===filters.location.toLowerCase())))return false;
+    }
+      return !search || [item.name,item.colorName,item.colorHex,item.vendor,item.material].some(value=>value?.toLowerCase().includes(search));
     });
-
-    const compare = (a: FilamentCard, b: FilamentCard) => {
-      // Prioritize spoolman source (always comes first)
-      if (a.source !== b.source) {
-        return a.source === "spoolman" ? -1 : 1;
-      }
-
-      switch (filters.sortField) {
-        case "vendor": {
-          const cmp = a.vendor.localeCompare(b.vendor, undefined, { sensitivity: "base" });
-          return filters.sortDir === "asc" ? cmp : -cmp;
-        }
-        case "material": {
-          const cmp = a.material.localeCompare(b.material, undefined, { sensitivity: "base" });
-          return filters.sortDir === "asc" ? cmp : -cmp;
-        }
-        case "source": {
-          const cmp = a.source.localeCompare(b.source, undefined, { sensitivity: "base" });
-          return filters.sortDir === "asc" ? cmp : -cmp;
-        }
-        case "hue": {
-          const hA = getColorMetrics(a.colorHex).hue;
-          const hB = getColorMetrics(b.colorHex).hue;
-          return filters.sortDir === "asc" ? hA - hB : hB - hA;
-        }
-        case "luminance": {
-          const lA = getColorMetrics(a.colorHex).luminance;
-          const lB = getColorMetrics(b.colorHex).luminance;
-          return filters.sortDir === "asc" ? lA - lB : lB - lA;
-        }
-        case "lightness": {
-          const lA = getColorMetrics(a.colorHex).lightness;
-          const lB = getColorMetrics(b.colorHex).lightness;
-          return filters.sortDir === "asc" ? lA - lB : lB - lA;
-        }
-        case "name":
-        default: {
-          const cmp = a.name.localeCompare(b.name, undefined, {
-            sensitivity: "base",
-          });
-          return filters.sortDir === "asc" ? cmp : -cmp;
-        }
-      }
-    };
-
-    return result.slice().sort(compare);
   });
-
-  const vendorOptions = computed(() => {
-    const values = new Set<string>();
-    // Use filtered results to respect active filters
-    filtered.value.forEach((item) => {
-      if (item.vendor && item.vendor !== "Unknown") values.add(item.vendor);
-    });
-    return Array.from(values).sort();
-  });
-
-  const materialOptions = computed(() => {
-    const values = new Set<string>();
-    // Use filtered results to respect active filters
-    filtered.value.forEach((item) => {
-      if (item.material && item.material !== "Unknown") values.add(item.material);
-    });
-    return Array.from(values).sort();
-  });
-
-  const colorOptions = computed(() => {
-    const map = new Map<string, { hex: string; luminance: number }>();
-    // Use filtered results to respect active filters
-    filtered.value.forEach((item) => {
-      const hex = item.colorHex;
-      if (!map.has(hex)) {
-        map.set(hex, { hex, luminance: getColorMetrics(hex).luminance });
-      }
-    });
-    return Array.from(map.values())
-      .sort((a, b) => a.luminance - b.luminance)
-      .map((v) => v.hex);
-  });
-
-  const locationOptions = computed(() => {
-    return Array.from(spoolmanLocations.value).sort();
-  });
-
-  return {
-    loading,
-    error,
-    allFilaments,
-    filtered,
-    filters,
-    vendorOptions,
-    materialOptions,
-    colorOptions,
-    locationOptions,
-    refresh: load,
-  };
-};
+  const options=(key:'vendor'|'material')=>computed(()=>[...new Set(allFilaments.value.flatMap(i=>i.kind==='inventory' && i[key]?[i[key]!]:[]))].sort());
+  return {connectRouter,loadMode,inventoryItems:computed(()=>snapshots.inventory ?? []),cachedItems:computed(()=>[...(snapshots.inventory??[]),...(snapshots.catalog??[])]),mode,setDiscoveryMode,loading,error,allFilaments,filtered,filters,vendorOptions:options('vendor'),materialOptions:options('material'),
+    colorOptions:computed(()=>[...new Set(allFilaments.value.map(i=>i.colorHex))]),
+    locationOptions:computed(()=>[...new Set(allFilaments.value.flatMap(i=>i.locations??[]))].sort()),refresh};
+}
